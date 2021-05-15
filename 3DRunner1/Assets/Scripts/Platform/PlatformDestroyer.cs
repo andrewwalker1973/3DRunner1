@@ -15,7 +15,7 @@ public class PlatformDestroyer : MonoBehaviour
    
     void Update()
     {
-        if (transform.position.x < platformDestructionPoint.transform.position.x)   // if gameobject past the point disable it
+        if (transform.position.z < platformDestructionPoint.transform.position.z)   // if gameobject past the point disable it
         {
             
             gameObject.SetActive(false);        // Disable the game object and have it availbe in the platform pool

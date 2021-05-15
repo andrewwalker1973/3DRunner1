@@ -50,7 +50,7 @@ public class PlatformGenerator : MonoBehaviour
         for (int i = 0; i < theObjectPools.Length; i++)
         {
             // platformWidths[i] = theObjectPools[i].pooledObject.transform.localScale.x;
-            platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider>().size.x;
+            platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider>().size.z;
         }
 
         minHeight = transform.position.y;               // set min height to be the height of the current platfomr in y
@@ -62,8 +62,10 @@ public class PlatformGenerator : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.x < generationPoint.position.x)          // if current point less than gen point on camera, create a platform
+        if (transform.position.z < generationPoint.position.z)          // if current point less than gen point on camera, create a platform
         {
+            Debug.Log("Enter loop");
+            
             distanceBetween = Random.Range(distanceBetweenMin, distanceBetweenMax);     // randomize the distance between platforms
 
             platformSelector = Random.Range(0, theObjectPools.Length);              // Randomize which platfomr to select
@@ -81,7 +83,7 @@ public class PlatformGenerator : MonoBehaviour
             }
 
             // Random generate a poweruP
-            if (Random.Range(0f, 100f) < powerUpThreshold)
+     /*       if (Random.Range(0f, 100f) < powerUpThreshold)
             {
                 GameObject newPowerup = powerUpPool.GetPooledObject();                      // find powerup in pool
                 newPowerup.transform.position = transform.position + new Vector3(distanceBetween / 2f, Random.Range(powerUpHeight / 2, powerUpHeight), 0f);       // add between platforms min 1/2 distance max distance
@@ -89,9 +91,10 @@ public class PlatformGenerator : MonoBehaviour
 
             }
 
-
-            transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween, heightChange, transform.position.z);  // Determine the position to spawn new platform
-
+*/
+           // transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2)/* + distanceBetween, heightChange, transform.position.x*/);  // Determine the position to spawn new platform
+            transform.position = new Vector3(transform.position.x, heightChange, transform.position.z + (platformWidths[platformSelector] / 2) + distanceBetween);
+            Debug.Log("trans1 " + transform.position);
 
 
             // Create the actual platform piece in the game world
@@ -118,7 +121,7 @@ public class PlatformGenerator : MonoBehaviour
             }
      */
 
-            if (Random.Range(0f, 100f) < randomHighObstacleThreshold)        // if random value below threshold spawn a high Obstacke
+    /*        if (Random.Range(0f, 100f) < randomHighObstacleThreshold)        // if random value below threshold spawn a high Obstacke
             {
                 GameObject newHighObstacle = HighObstaclePool.GetPooledObject();      // get High obstacle from pool
                 float highObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
@@ -128,7 +131,9 @@ public class PlatformGenerator : MonoBehaviour
                 newHighObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
                 newHighObstacle.SetActive(true);                                     // set it visable
             }
-            transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), transform.position.y, transform.position.z);  // Determine the position to spawn new platform
+    */
+         //   transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), transform.position.y, transform.position.z);  // Determine the position to spawn new platform
+         transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + (platformWidths[platformSelector] / 2));
 
 
         }

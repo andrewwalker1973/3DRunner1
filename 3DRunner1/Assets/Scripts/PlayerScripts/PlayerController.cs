@@ -11,7 +11,12 @@ public class PlayerController : MonoBehaviour
     public bool isJumping;                                  // ARe we in the process of jumping
     [SerializeField] private float movespeed = 9f;         // Start MoveSpeed
 
+    private const float LANE_DISTANCE = 1f; //set the lane width
+    private const float TURN_SPEED = 0.05f;     // how much to turn when changing lans
+    private int desiredLane = 1; // 0=left 1=middle 2=right
 
+    //
+    private bool isRunning = false;                 // are we running ?
 
 
     // speed Modifier
@@ -36,12 +41,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = 20f;                            // define initail gravity
     private float verticalVelocity;                         // define vertical upward motion
 
-   // private float hiScoreCount;                  // what is the hi score
+    // private float hiScoreCount;                  // what is the hi score
 
+    Vector3 moveVector = Vector3.zero;
 
     //Code to give points when picking up coin
     //   public int coinscoreToGive;     // what point value to give
-     private ScoreManager theScoreManager;       // reference the score manager
+    private ScoreManager theScoreManager;       // reference the score manager
 
     void Start()
     {
@@ -80,10 +86,14 @@ public class PlayerController : MonoBehaviour
         if (MobileInput.Instance.SwipeLeft || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Debug.Log(" Go Left");
+            //  MoveLane(false);
+            moveVector.z = Input.GetAxisRaw("Horizontal") * movespeed;
         }
         if (MobileInput.Instance.SwipeRight || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Debug.Log(" Go Right");
+            //  MoveLane(true);
+            moveVector.z = Input.GetAxisRaw("Horizontal") * movespeed;
         }
 
         if (MobileInput.Instance.SwipeUp || Input.GetKeyDown(KeyCode.UpArrow) && isOnGround)            // if swipe up and on ground then jumpm
@@ -112,8 +122,20 @@ public class PlayerController : MonoBehaviour
 
         // Calculate where we should be in the future
         Vector3 targetPosition = transform.position.x * Vector3.back;
+
+   /* if (desiredLane == 0)
+        {
+            targetPosition += new Vector3 (0,0,-1f) * LANE_DISTANCE;
+        }
+        else if (desiredLane == 2)
+        {
+            targetPosition += new Vector3(0, 0, 1f) * LANE_DISTANCE;
+        }
+   */
+    
+
         // Calcuate move vector
-        Vector3 moveVector = Vector3.zero;
+     //   Vector3 moveVector = Vector3.zero;
         moveVector.x = (targetPosition - transform.position).normalized.x * movespeed; // character was shakaing 
 
         //moveVector.x = (targetPosition - transform.position).x * movespeed;
@@ -122,10 +144,26 @@ public class PlayerController : MonoBehaviour
         moveVector.y = verticalVelocity;
         moveVector.x = movespeed;
         controller.Move(moveVector * Time.deltaTime);
+
+        //Rotate charatcter in direction of travel
+        Vector3 dir = controller.velocity;
+        if (dir != Vector3.zero)
+        {
+            dir.y = 0;
+            transform.forward = Vector3.Lerp(transform.forward, dir, TURN_SPEED);
+
+        }
+
+        
     }
 
 
+    private void MoveLane(bool goingRight)
+    {
+        desiredLane += (goingRight) ? 1 : -1;
+        desiredLane = Mathf.Clamp(desiredLane, 0, 2);
 
+    }
 
     #region Slide and Jump functions
     private void StartSliding()

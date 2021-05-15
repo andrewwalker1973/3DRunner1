@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public Transform platformGenerator;             // needs the platform generator game aboject
     private Vector3 platformStartPoint;             // Where to start creating platforms
 
-    public PlayerController thePlayer;              // reference to player object
+    public PlayerMotor thePlayer;              // reference to player object
     private Vector3 playerStartPoint;               // where does the player start
 
     private PlatformDestroyer[] platformList;       // Create an array of platforms to disable when restarting the game
