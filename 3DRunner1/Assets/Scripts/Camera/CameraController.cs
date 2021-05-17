@@ -3,15 +3,15 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // Camrea controls when in 2D
-    /*  //Variables for camera follow next to player
-      public PlayerController thePlayerObject;            // public object for the actual player gameobject
+   //Variables for camera follow next to player
+      public PlayerMotor thePlayerObject;            // public object for the actual player gameobject
       private Vector3 lastPlayerPosition;                 // Vector3 to store the x,y,z of player before it moved forward
       private float distanceToMove;                       // float to determine how far the player actuall moved
 
 
       void Start()
       {
-          thePlayerObject = FindObjectOfType<PlayerController>();         // find the player controller on the player object
+          thePlayerObject = FindObjectOfType<PlayerMotor>();         // find the player controller on the player object
           lastPlayerPosition = thePlayerObject.transform.position;        // get the last position of the player object at start of game
 
       }
@@ -19,12 +19,12 @@ public class CameraController : MonoBehaviour
 
       void Update()
       {
-          distanceToMove = thePlayerObject.transform.position.x - lastPlayerPosition.x;       // determine how far to move the camera, distance from where the player is to where he was before move
-          transform.position = new Vector3(transform.position.x + distanceToMove, transform.position.y, transform.position.z); // set the camera positon to new position based on above calculation
+          distanceToMove = thePlayerObject.transform.position.z - lastPlayerPosition.z;       // determine how far to move the camera, distance from where the player is to where he was before move
+          transform.position = new Vector3(transform.position.x , transform.position.y, transform.position.z + distanceToMove); // set the camera positon to new position based on above calculation
           lastPlayerPosition = thePlayerObject.transform.position;                        // Store the current position so that we can re-run code to move again.
       }
 
-      */
+     
 
 
 
@@ -84,42 +84,48 @@ public class CameraController : MonoBehaviour
      }
     */
 
-    private Transform lookAt;
-    private  Vector3 startOffset;
-    [SerializeField]private Vector3 moveVector;
+    /* private Transform lookAt;
+     public  Vector3 startOffset;
+     private Vector3 moveVector;
 
-    private float transition = 0.0f;
-    private float animationDuration = 2.0f;
-    private Vector3 animationOffset = new Vector3(0, 5, -13);
+     private float transition = 0.0f;
+     private float animationDuration = 2.0f;
+     // private Vector3 animationOffset = new Vector3(0, 5, -133);
 
-    private void Start()
-    {
-        lookAt = GameObject.FindGameObjectWithTag ("Player").transform;
-        startOffset = transform.position - lookAt.position;
-    }
+     private Vector3 animationOffset = new Vector3(33, 13, -0.5f); 
 
-    private void Update()
-    {
-        moveVector = lookAt.position + startOffset;
+     private void Start()
+     {
+         lookAt = GameObject.FindGameObjectWithTag ("Player").transform;
+       //  startOffset = transform.position - lookAt.position;
+     }
 
-        // X
-        moveVector.x = 0;
+     private void Update()
+     {
+         moveVector = lookAt.position + startOffset;
 
-        // Y
-        moveVector.y = Mathf.Clamp(moveVector.y, 3, 5);   // clamp y to be between 3 and 5 height
+         // X
+         moveVector.x = 0;
 
-        if (transition > 1.0f)
-        {
-            transform.position = moveVector;
+         // Y
+         moveVector.y = Mathf.Clamp(moveVector.y, 3, 5);   // clamp y to be between 3 and 5 height
 
-        }
-        else
-        {
-            // Animation at start of Game
-            transform.position = Vector3.Lerp(moveVector + animationOffset, moveVector, transition);
-            transition += Time.deltaTime * 1 / animationDuration;
-            transform.LookAt(lookAt.position + Vector3.up);
-        }
+         if (transition > 1.0f)
+         {
+             transform.position = moveVector;
 
-    }
+         }
+         else
+         {
+             // Animation at start of Game
+             transform.position = Vector3.Lerp(moveVector + animationOffset, moveVector, transition);
+             transition += Time.deltaTime * 1 / animationDuration;
+             transform.LookAt(lookAt.position + Vector3.up);
+         }
+
+     }
+
+     */
+
+    
 }

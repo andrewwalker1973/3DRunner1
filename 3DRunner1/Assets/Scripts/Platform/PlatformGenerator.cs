@@ -40,7 +40,6 @@ public class PlatformGenerator : MonoBehaviour
 
 
 
-
     void Start()
     {
 
@@ -64,7 +63,7 @@ public class PlatformGenerator : MonoBehaviour
     {
         if (transform.position.z < generationPoint.position.z)          // if current point less than gen point on camera, create a platform
         {
-            Debug.Log("Enter loop");
+
             
             distanceBetween = Random.Range(distanceBetweenMin, distanceBetweenMax);     // randomize the distance between platforms
 
@@ -94,14 +93,18 @@ public class PlatformGenerator : MonoBehaviour
 */
            // transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2)/* + distanceBetween, heightChange, transform.position.x*/);  // Determine the position to spawn new platform
             transform.position = new Vector3(transform.position.x, heightChange, transform.position.z + (platformWidths[platformSelector] / 2) + distanceBetween);
-            Debug.Log("trans1 " + transform.position);
 
 
+
+            
+            
             // Create the actual platform piece in the game world
             GameObject newPlatform = theObjectPools[platformSelector].GetPooledObject();                        // run the function in the ObjectPool script called GetpooledObject to find the next game object and make it a game object
             newPlatform.transform.position = transform.position;                            // set the new platforms position
             newPlatform.transform.rotation = transform.rotation;                            // Set the new platforms rotation
             newPlatform.SetActive(true);                                                    // Set it active in the game
+
+
 
      /*       if (Random.Range(0f, 100f) < randomCoinThreshold)        // if random value below threshold spawn a coin set
             {
@@ -109,35 +112,38 @@ public class PlatformGenerator : MonoBehaviour
             }
      */
 
-     /*       if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a low Obstacke
-            {
-                GameObject newLowObstacle = LowObstaclePool.GetPooledObject();      // get Low obstacle from pool
-                float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
+            /*       if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a low Obstacke
+                   {
+                       GameObject newLowObstacle = LowObstaclePool.GetPooledObject();      // get Low obstacle from pool
+                       float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
 
-                Vector3 lowObstaclePosition = new Vector3(lowObstacleXPosition, 1f, 0f);            // Raise the obstaklce up a bit
-                newLowObstacle.transform.position = transform.position + lowObstaclePosition;             // Set its position to platform position
-                newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-                newLowObstacle.SetActive(true);                                     // set it visable
-            }
-     */
+                       Vector3 lowObstaclePosition = new Vector3(lowObstacleXPosition, 1f, 0f);            // Raise the obstaklce up a bit
+                       newLowObstacle.transform.position = transform.position + lowObstaclePosition;             // Set its position to platform position
+                       newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+                       newLowObstacle.SetActive(true);                                     // set it visable
+                   }
+            */
 
-    /*        if (Random.Range(0f, 100f) < randomHighObstacleThreshold)        // if random value below threshold spawn a high Obstacke
-            {
-                GameObject newHighObstacle = HighObstaclePool.GetPooledObject();      // get High obstacle from pool
-                float highObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
+            /*        if (Random.Range(0f, 100f) < randomHighObstacleThreshold)        // if random value below threshold spawn a high Obstacke
+                    {
+                        GameObject newHighObstacle = HighObstaclePool.GetPooledObject();      // get High obstacle from pool
+                        float highObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
 
-                Vector3 highObstaclePosition = new Vector3(highObstacleXPosition, 2.5f, 0f);            // Raise the obstaklce up a bit
-                newHighObstacle.transform.position = transform.position + highObstaclePosition;             // Set its position to platform position
-                newHighObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-                newHighObstacle.SetActive(true);                                     // set it visable
-            }
-    */
-         //   transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), transform.position.y, transform.position.z);  // Determine the position to spawn new platform
-         transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + (platformWidths[platformSelector] / 2));
+                        Vector3 highObstaclePosition = new Vector3(highObstacleXPosition, 2.5f, 0f);            // Raise the obstaklce up a bit
+                        newHighObstacle.transform.position = transform.position + highObstaclePosition;             // Set its position to platform position
+                        newHighObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+                        newHighObstacle.SetActive(true);                                     // set it visable
+                    }
+            */
+            //   transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), transform.position.y, transform.position.z);  // Determine the position to spawn new platform
+            transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + (platformWidths[platformSelector] / 2));
 
 
         }
     }
+
+
+   
 }
 
  

@@ -5,18 +5,20 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
     // private const float LANE_DISTANCE = 2.5f; //set the lane width
-    private const float LANE_DISTANCE = 1f; //set the lane width
+    private const float LANE_DISTANCE = 2f; //set the lane width
     private const float TURN_SPEED = 0.05f;
 
     //
     private bool isRunning = true;
+    //Slide Settings
+    public bool isSliding = false;                                              // am Sliding true/false
 
     //  Animation
-  //  private Animator anim;
+    //  private Animator anim;
     // Magnet magnet;
     // Movement
     private CharacterController controller;
-    private float jumpForce = 4f; // WAS 4
+    public float jumpForce = 4f; // WAS 4
     private float gravity = 12f;
     private float verticalVelocity;
 
@@ -25,7 +27,7 @@ public class PlayerMotor : MonoBehaviour
 
     // speed Modifier
     private float originalSpeed = 9.0f; // was 7
-    private float speed = 9.0f; // was 7
+    public float speed = 15.0f; // was 7
     private float speedIncreaseLastTick;
     private float speedIncreaseTime = 2.5f;
     private float speedIncreaseAmount = 0.1f;
@@ -37,24 +39,29 @@ public class PlayerMotor : MonoBehaviour
       private List<PowerUpType> itemsToRemove;
     */
     public GameObject Player;
- //   public GameObject MagnetCollider;
-  //  CoinMove coinMoveScript;
+    public GameManager theGameManager;                              // Reference the GameManager script to call fucntions
+    private ScoreManager theScoreManager;       // reference the score manager
+
+    //   public GameObject MagnetCollider;
+    //  CoinMove coinMoveScript;
 
     //attepmpt at origion root
-//    public GameObject OrigionRoot;
+    //    public GameObject OrigionRoot;
 
 
     private void Start()
     {
         speed = originalSpeed;
         controller = GetComponent<CharacterController>();
-     //   anim = GetComponent<Animator>();
-        // magnet = gameObject.GetComponent<Magnet>();
+        theScoreManager = FindObjectOfType<ScoreManager>();         // find score manager script
+
+        //   anim = GetComponent<Animator>();
+          // magnet = gameObject.GetComponent<Magnet>();
 
         // Magnet stuff
         //   coinDetectorobj = GameObject.FindGameObjectWithTag("CoinDetector");
         //  coinDetectorobj.SetActive(false);
-     //   coinMoveScript = gameObject.GetComponent<CoinMove>();
+        //   coinMoveScript = gameObject.GetComponent<CoinMove>();
 
 
         //origionroot
@@ -208,6 +215,7 @@ public class PlayerMotor : MonoBehaviour
 
     private void MoveLane(bool goingRight)
     {
+        Debug.Log("Move Lane");
         desiredLane += (goingRight) ? 1 : -1;
         desiredLane = Mathf.Clamp(desiredLane, 0, 2);
 
@@ -226,7 +234,8 @@ public class PlayerMotor : MonoBehaviour
 
     private void StartSliding()
     {
-      //  anim.SetBool("Sliding", true);
+        //  anim.SetBool("Sliding", true);
+        isSliding = true;
         controller.height /= 2;
         controller.center = new Vector3(controller.center.x, controller.center.y / 2, controller.center.z);
 
@@ -238,6 +247,7 @@ public class PlayerMotor : MonoBehaviour
       //  anim.SetBool("Sliding", false);
         controller.height *= 2;
         controller.center = new Vector3(controller.center.x, controller.center.y * 2, controller.center.z);
+        isSliding = false;
 
     }
 
@@ -296,4 +306,37 @@ public class PlayerMotor : MonoBehaviour
 
       }
     */
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Debug.Log("enter");
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("Hit obstalce");
+            theScoreManager.SaveHighScore();
+         //   theGameManager.RestartGame();       // AW want pause and choose to continue later
+            theGameManager.RestartGame(); 
+        }
+
+        if (other.gameObject.CompareTag("Enemy"))  // If hit Enemy
+        {
+            if (isSliding == true)                      // If the Player is sliding, they kick the feet out from under enemy and they die
+            {
+
+                Destroy(other.gameObject);          // Code to destroy the object that we collided with
+            }
+            else
+            {
+                theScoreManager.SaveHighScore();
+                //  deathSound.Play();
+                theGameManager.RestartGame();  // AW want pause and choose to continue later
+              //  movespeed = moveSpeedStore;     //Reset back to starting game speed
+             //   speedMilestoneCount = speedMilestoneCountStore;  //Reset back to starting game speed increase
+              //  speedIncreaseMilestone = speedIncreaseMilestoneStore; //Reset back to starting game spped milestone
+            }
+        }
+
+
+
+    }
 }
