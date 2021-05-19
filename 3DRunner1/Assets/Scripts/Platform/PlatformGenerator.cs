@@ -26,10 +26,11 @@ public class PlatformGenerator : MonoBehaviour
     public ObjectPooler[] theObjectPools;      // Refernce the object pooler script
 
     private CoinGenerator theCoinGenerator;      // reference the coin genertion script
+    public PoolManager thePoolManager;
     public float randomCoinThreshold;           // Randomize if coin appears
 
     public float randomLowObstacleThreshold;        // Random Range for low obstacle pool
-    public ObjectPooler LowObstaclePool;            // Define the low Obstacle Pool
+   // public ObstaclePool LowObstaclePool;            // Define the low Obstacle Pool
 
     public float randomHighObstacleThreshold;        // Random Range for high obstacle pool
     public ObjectPooler HighObstaclePool;            // Define the high Obstacle Pool
@@ -37,6 +38,8 @@ public class PlatformGenerator : MonoBehaviour
     public float powerUpHeight;                     // How high to pisiton powerp
     public ObjectPooler powerUpPool;                // the pool to reference for powerups
     public float powerUpThreshold;                  // what is the threshold for appearing
+
+    private GameObject newLowObstacle;
 
 
 
@@ -106,23 +109,26 @@ public class PlatformGenerator : MonoBehaviour
 
 
 
-     /*       if (Random.Range(0f, 100f) < randomCoinThreshold)        // if random value below threshold spawn a coin set
-            {
-                theCoinGenerator.SpawnCoins(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));        // spawn coin in center of platform
-            }
-     */
-
-            /*       if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a low Obstacke
+            /*       if (Random.Range(0f, 100f) < randomCoinThreshold)        // if random value below threshold spawn a coin set
                    {
-                       GameObject newLowObstacle = LowObstaclePool.GetPooledObject();      // get Low obstacle from pool
-                       float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
-
-                       Vector3 lowObstaclePosition = new Vector3(lowObstacleXPosition, 1f, 0f);            // Raise the obstaklce up a bit
-                       newLowObstacle.transform.position = transform.position + lowObstaclePosition;             // Set its position to platform position
-                       newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-                       newLowObstacle.SetActive(true);                                     // set it visable
+                       theCoinGenerator.SpawnCoins(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));        // spawn coin in center of platform
                    }
             */
+            if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a coin set
+            {
+                theCoinGenerator.SpawnObstacle(new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z));        // spawn coin in center of platform
+            }
+
+            /*     if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a low Obstacke
+                    {
+                                newLowObstacle =  thePoolManager.GetRandomObject();
+                                 float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
+                                 Vector3 lowObstaclePosition = new Vector3(0f, 2.5f, lowObstacleXPosition);            // Raise the obstaklce up a bit
+                                 newLowObstacle.transform.position = transform.position + lowObstaclePosition;             // Set its position to platform position
+                                 newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+                                 newLowObstacle.SetActive(true);                                     // set it visable
+                    }
+             */
 
             /*        if (Random.Range(0f, 100f) < randomHighObstacleThreshold)        // if random value below threshold spawn a high Obstacke
                     {

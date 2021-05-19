@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1836410865133954152}
   - component: {fileID: 9161790420403626308}
+  - component: {fileID: -712933912293555094}
   m_Layer: 0
   m_Name: NewGround1
   m_TagString: Ground
@@ -52,6 +53,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 3.908671, z: 80}
   m_Center: {x: 0, y: 0.063622236, z: 0}
+--- !u!114 &-712933912293555094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552732710549106070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce58fc070c7ac384f9a3a29c1901ce0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformDestructionPoint: {fileID: 0}
 --- !u!1001 &531452007940302590
 PrefabInstance:
   m_ObjectHideFlags: 0

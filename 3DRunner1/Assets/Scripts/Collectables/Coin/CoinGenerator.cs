@@ -6,9 +6,10 @@ public class CoinGenerator : MonoBehaviour
 {
 
     public ObjectPooler coinPool;               // Pool of coins
+    public PoolManager thePoolManager;
     public float distanceBetweenCoins;
 
-    public void SpawnCoins (Vector3 startPosition)
+    public void SpawnCoins(Vector3 startPosition)
     {
         GameObject coin1 = coinPool.GetPooledObject();          // add coin at start position
         coin1.transform.position = startPosition;
@@ -23,5 +24,27 @@ public class CoinGenerator : MonoBehaviour
         coin3.SetActive(true);
     }
 
+    public void SpawnObstacle(Vector3 startPosition)
+    {
 
+        GameObject Obstacle1 = thePoolManager.GetRandomObject();
+        Obstacle1.transform.position = startPosition;
+        Obstacle1.SetActive(true);
+
+        GameObject Obstacle2 = thePoolManager.GetRandomObject();
+        Obstacle2.transform.position = new Vector3(startPosition.x , startPosition.y, startPosition.z - distanceBetweenCoins);       // add coin to left of start position
+        Obstacle2.SetActive(true);
+
+        GameObject Obstacle3 = thePoolManager.GetRandomObject();
+        Obstacle3.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z + distanceBetweenCoins);
+        Obstacle3.SetActive(true);
+
+        GameObject Obstacle4 = thePoolManager.GetRandomObject();
+        Obstacle4.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z + distanceBetweenCoins + distanceBetweenCoins);
+        Obstacle4.SetActive(true);
+
+        GameObject Obstacle5 = thePoolManager.GetRandomObject();
+        Obstacle5.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z - distanceBetweenCoins - distanceBetweenCoins);
+        Obstacle5.SetActive(true);
+    }
 }
