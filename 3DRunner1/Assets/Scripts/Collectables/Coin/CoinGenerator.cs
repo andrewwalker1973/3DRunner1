@@ -39,12 +39,12 @@ public class CoinGenerator : MonoBehaviour
         Obstacle3.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z + distanceBetweenCoins);
         Obstacle3.SetActive(true);
 
-        GameObject Obstacle4 = thePoolManager.GetRandomObject();
-        Obstacle4.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z + distanceBetweenCoins + distanceBetweenCoins);
+       /* GameObject Obstacle4 = thePoolManager.GetRandomObject();
+        Obstacle4.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z + distanceBetweenCoins *2 );
         Obstacle4.SetActive(true);
-
+        
         GameObject Obstacle5 = thePoolManager.GetRandomObject();
         Obstacle5.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z - distanceBetweenCoins - distanceBetweenCoins);
-        Obstacle5.SetActive(true);
+        Obstacle5.SetActive(true);*/
     }
 }

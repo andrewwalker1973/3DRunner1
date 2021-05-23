@@ -26,7 +26,7 @@ public class PlayerMotor : MonoBehaviour
     private int desiredLane = 1; // 0=left 1=middle 2=right
 
     // speed Modifier
-    private float originalSpeed = 9.0f; // was 7
+    private float originalSpeed = 15.0f; // was 7
     public float speed = 15.0f; // was 7
     private float speedIncreaseLastTick;
     private float speedIncreaseTime = 2.5f;
@@ -215,7 +215,7 @@ public class PlayerMotor : MonoBehaviour
 
     private void MoveLane(bool goingRight)
     {
-        Debug.Log("Move Lane");
+        
         desiredLane += (goingRight) ? 1 : -1;
         desiredLane = Mathf.Clamp(desiredLane, 0, 2);
 

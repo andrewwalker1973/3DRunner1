@@ -10,9 +10,10 @@ public class PathItemGenerator : MonoBehaviour
     private string powerupSpawnPointString = "Powerup Spawn Points"; // string to find our powerup spawn points container
     private int numberOfCoinsToGenerate = 2;  //was 5
     private int coinDistanceGap = 20;
-    
 
 
+    private GameObject newLowObstacle;
+    public PoolManager thePoolManager;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class PathItemGenerator : MonoBehaviour
     }
 
 
-    private void SpawnCoin()
+  /*  private void SpawnCoin()
     {
 
         //  Debug.Log("SpawnCoin COin");
@@ -51,16 +52,37 @@ public class PathItemGenerator : MonoBehaviour
         {
             Vector3 newPosition = spawnPoint.transform.position;
           //  Debug.Log("newPosition " + newPosition);
-            newPosition.x += i * numberOfCoinsToGenerate;
+            newPosition.z += i * numberOfCoinsToGenerate;
             Instantiate(ItemLoaderManager.Instance.Coin, newPosition, Quaternion.identity);
         }
     }
+  */
+    private void SpawnCoin()
+    {
 
+        //  Debug.Log("SpawnCoin COin");
+        Transform spawnPoint = PickSpawnPoint(containerString, spawnPointString);
+        // Debug.Log("Spawn point" + spawnPoint);
+        // We then create a loop of X items that are Y units apart from each other
+                   Vector3 newPosition = spawnPoint.transform.position;
+            //  Debug.Log("newPosition " + newPosition);
+          //  newPosition.z += i * numberOfCoinsToGenerate;
+          //  Instantiate(ItemLoaderManager.Instance.Coin, newPosition, Quaternion.identity);
+        newLowObstacle = thePoolManager.GetRandomObject();
+        Debug.Log("random obj " + newLowObstacle);
+        //  float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
+          Vector3 lowObstaclePosition = spawnPoint.transform.position;            // Raise the obstaklce up a bit
+        //  newLowObstacle.transform.position = transform.position + lowObstaclePosition;             // Set its position to platform position
+      //     newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+        newLowObstacle.SetActive(true);
 
- /*   private void SpawnPowerUp()
+    }
+
+    private void SpawnPowerUp()
     {
         // We randomly generate a number and divide it by 100. If it is lower than the spawn rate chance we set,
         // then we create the powerup.
+        Debug.Log("Start Spawn");
         bool generatePowerUp = Random.Range(0, 100) / 100f < PowerupSpawnRate;
         if (generatePowerUp)
         {
@@ -68,13 +90,20 @@ public class PathItemGenerator : MonoBehaviour
             Vector3 newPosition = spawnPoint.transform.position;
 
             // Get our Power-ups and randomly pick one of them to show
-            GameObject[] powerUps = ItemLoaderManager.Instance.PowerUps;
-            int powerUpIndex = Random.Range(0, powerUps.Length);
-            Instantiate(powerUps[powerUpIndex], newPosition, Quaternion.identity);
+            //    GameObject[] powerUps = ItemLoaderManager.Instance.PowerUps;
+            //     int powerUpIndex = Random.Range(0, powerUps.Length);
+            //      Instantiate(powerUps[powerUpIndex], newPosition, Quaternion.identity);
             //   Debug.Log("Creating power up an spawn point");
+            Debug.Log("Power up spawn");
+            newLowObstacle = thePoolManager.GetRandomObject();
+          //  float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
+          //  Vector3 lowObstaclePosition = new Vector3(0f, 2.5f, lowObstacleXPosition);            // Raise the obstaklce up a bit
+            newLowObstacle.transform.position = transform.position ;             // Set its position to platform position
+            newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+            newLowObstacle.SetActive(true);
         }
     }
-*/
+
 
     private Transform PickSpawnPoint(string spawnPointContainerString, string spawnPointString)
     {

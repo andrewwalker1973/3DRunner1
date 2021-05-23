@@ -138,6 +138,8 @@ public class PoolManager : MonoBehaviour
 	// Set PreloadedTypeOnly to true if  you'd like to allow addingonly objects with one of the names from peloadObjects
 	public void PoolObject (GameObject _object, bool PreloadedTypeOnly)
 	{
+
+		
 		if (_object)
 			if (!PreloadedTypeOnly) 
 			{
@@ -145,6 +147,7 @@ public class PoolManager : MonoBehaviour
 				_object.SetActive(false);			
 				_object.transform.parent = transform;
 				Pool.Add(_object);
+				
 			}
 			else  // If only objects with preseted names allowed
 				for (int i=0; i<peloadObjects.Length; i++)

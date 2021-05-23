@@ -40,7 +40,8 @@ public class PooledObject : MonoBehaviour
 	// Automatiacally pools objects to current (parent) pool onDisable
 	public void OnDisable  () 
 	{
-		if(poolOnDisable) 
+		if (poolOnDisable)
+		//	Debug.Log("MMEEEE");
 			Invoke("Pool", 0.1f);
 
 	}
