@@ -49,14 +49,14 @@ public class PowerUpManager : MonoBehaviour
 
             if (safeMode)
             {
-                thePlatformGenerator.randomLowObstacleThreshold = 0;        // set low obstacle rate to 0
+       //         thePlatformGenerator.randomLowObstacleThreshold = 0;        // set low obstacle rate to 0
             }
 
 
             if (powerUpLenghtCounter <= 0)                                              // when at 0
             {
                 theScoreManager.pointsPerSecond = normalPointsPerSecond;             // set points per second back
-                thePlatformGenerator.randomLowObstacleThreshold = LowObstacleRate;  // set low obstacle rate back
+             //   thePlatformGenerator.randomLowObstacleThreshold = LowObstacleRate;  // set low obstacle rate back
                 theScoreManager.shouldDouble = false;                               // stop doubling points
                 powerupActive = false;                                              // disable the powerup
             }
@@ -70,7 +70,7 @@ public class PowerUpManager : MonoBehaviour
         powerUpLenghtCounter = time;        // set value to be local value
 
         normalPointsPerSecond = theScoreManager.pointsPerSecond;    // Save original settings
-        LowObstacleRate = thePlatformGenerator.randomLowObstacleThreshold;  // Save original settings
+     //   LowObstacleRate = thePlatformGenerator.randomLowObstacleThreshold;  // Save original settings
 
         if (safeMode)
         {

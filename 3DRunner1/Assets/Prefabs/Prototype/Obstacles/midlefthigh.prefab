@@ -227,8 +227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8068251394268839207}
-  - component: {fileID: 2647529509440131459}
-  - component: {fileID: 910381486599375618}
+  - component: {fileID: 2151200146496203425}
   m_Layer: 0
   m_Name: midlefthigh
   m_TagString: Untagged
@@ -244,7 +243,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5387257971471802015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03338623, y: 0.75088704, z: 2124.924}
+  m_LocalPosition: {x: 0.03338623, y: 0.96088696, z: 1502.6611}
   m_LocalScale: {x: 1.7, y: 1, z: 1}
   m_Children:
   - {fileID: 5683165379950797572}
@@ -252,24 +251,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2647529509440131459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5387257971471802015}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e90ff1f1f644a57419d9a21a91f7142a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 1000
-  onlyIfNotVisible: 0
-  alsoDestroy: 0
-  randomize: 0
-  randomizedLifeLimits: {x: 0, y: 0}
---- !u!114 &910381486599375618
+--- !u!114 &2151200146496203425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
