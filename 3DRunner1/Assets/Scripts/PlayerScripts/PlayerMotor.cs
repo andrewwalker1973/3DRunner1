@@ -13,6 +13,8 @@ public class PlayerMotor : MonoBehaviour
     //Slide Settings
     public bool isSliding = false;                                              // am Sliding true/false
 
+    public bool isSafe = false;
+
     //  Animation
     //  private Animator anim;
     // Magnet magnet;
@@ -183,7 +185,7 @@ public class PlayerMotor : MonoBehaviour
             {
                 verticalVelocity = -jumpForce;  //drop immediatly to ground
                                                 // Add code to drop quick and then slide
-                                                //StartSliding();
+                StartSliding();
                                                 // anim.SetBool("DropSlide", true);
 
             }
@@ -313,9 +315,11 @@ public class PlayerMotor : MonoBehaviour
         if (other.gameObject.CompareTag("Obstacle"))
         {
             Debug.Log("Hit obstalce");
-            theScoreManager.SaveHighScore();
-         //   theGameManager.RestartGame();       // AW want pause and choose to continue later
-            theGameManager.RestartGame(); 
+            if (isSafe == false)
+            {
+                theScoreManager.SaveHighScore();
+                theGameManager.RestartGame();
+            }
         }
 
         if (other.gameObject.CompareTag("Enemy"))  // If hit Enemy
@@ -327,16 +331,30 @@ public class PlayerMotor : MonoBehaviour
             }
             else
             {
-                theScoreManager.SaveHighScore();
-                //  deathSound.Play();
-                theGameManager.RestartGame();  // AW want pause and choose to continue later
-              //  movespeed = moveSpeedStore;     //Reset back to starting game speed
-             //   speedMilestoneCount = speedMilestoneCountStore;  //Reset back to starting game speed increase
-              //  speedIncreaseMilestone = speedIncreaseMilestoneStore; //Reset back to starting game spped milestone
+                if (isSafe == false)
+                {
+                    theScoreManager.SaveHighScore();
+                    //  deathSound.Play();
+                    theGameManager.RestartGame();  // AW want pause and choose to continue later
+                                                   //  movespeed = moveSpeedStore;     //Reset back to starting game speed
+                                                   //   speedMilestoneCount = speedMilestoneCountStore;  //Reset back to starting game speed increase
+                                                   //  speedIncreaseMilestone = speedIncreaseMilestoneStore; //Reset back to starting game spped milestone
+                }
             }
         }
 
 
 
     }
+
+    public void IsSafe()
+    {
+        isSafe = true;
+    }
+    public void IsNotSafe()
+    {
+        isSafe = false;
+    }
+
+   
 }

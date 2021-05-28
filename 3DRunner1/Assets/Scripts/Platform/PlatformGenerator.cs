@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
 {
-    // public GameObject thePlatform;      // The platform game object 
+
     public Transform generationPoint;   // where to generate the platform
     private float distanceBetween;      // distance between the platforms
     private float platformWidth;        // the Width of the platform
@@ -18,7 +18,7 @@ public class PlatformGenerator : MonoBehaviour
     public float maxHeightChange;           // how much can we increase in height
     private float heightChange;
 
-    // public GameObject[] thePlatforms;
+
     private int platformSelector;           // int to number the platforms
 
     public float[] platformWidths;          // array to manage the widths of the platforms 
@@ -29,28 +29,23 @@ public class PlatformGenerator : MonoBehaviour
     public PoolManager thePoolManager;
     public float randomCoinThreshold;           // Randomize if coin appears
 
-    //public float randomLowObstacleThreshold;        // Random Range for low obstacle pool
-    // public ObstaclePool LowObstaclePool;            // Define the low Obstacle Pool
 
-    // public float randomHighObstacleThreshold;        // Random Range for high obstacle pool
-    // public ObjectPooler HighObstaclePool;            // Define the high Obstacle Pool
 
     public float powerUpHeight;                     // How high to pisiton powerp
-    public ObjectPooler powerUpPool;                // the pool to reference for powerups
+    public ObjectPooler[] thePowerUpPools;                // the pool to reference for powerups
     public float powerUpThreshold;                  // what is the threshold for appearing
 
-    private GameObject newLowObstacle;
-    private GameObject newLowObstacle1;
-    private GameObject newLowObstacle2;
+
 
     public ObjectPooler[] theObstacleObjectPools;      // Refernce the object pooler script
     private int obstacleSelector = 0;           // int to number the platforms
     private int oldObstacleSelector = 4;
 
-    /* private string containerString = "Container";
-     private string spawnPointString = "Spawn Points"; // string to find our Spawn Points container
-     private string powerupSpawnPointString = "Powerup Spawn Points"; // string to find our powerup spawn points container
-    */
+    private int powerupSelector = 0;
+    private int prelaneToSpawn;
+    private int powerUpLocationLane = 0;
+    private float powerUpLocation = 0f;
+
 
 
     void Start()
@@ -61,7 +56,6 @@ public class PlatformGenerator : MonoBehaviour
         platformWidths = new float[theObjectPools.Length];      // create array with all the platfomr widths for the platforms chosen
         for (int i = 0; i < theObjectPools.Length; i++)
         {
-            // platformWidths[i] = theObjectPools[i].pooledObject.transform.localScale.x;
             platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider>().size.z;
         }
 
@@ -95,18 +89,35 @@ public class PlatformGenerator : MonoBehaviour
                 heightChange = minHeight;
             }
 
-            // Random generate a poweruP
-            /*       if (Random.Range(0f, 100f) < powerUpThreshold)
-                   {
-                       GameObject newPowerup = powerUpPool.GetPooledObject();                      // find powerup in pool
-                       newPowerup.transform.position = transform.position + new Vector3(distanceBetween / 2f, Random.Range(powerUpHeight / 2, powerUpHeight), 0f);       // add between platforms min 1/2 distance max distance
-                       newPowerup.SetActive(true);                                                 // set powerup active
 
-                   }
+            if (Random.Range(0f, 100f) < powerUpThreshold)
+            {
+                powerupSelector = Random.Range(0, thePowerUpPools.Length);              // Get random powerup from Pool
+                GameObject Powerup1 = thePowerUpPools[powerupSelector].GetPooledObject();       // make it a game object
+                powerUpLocationLane = Random.Range(0, 3);                                       // randomize which lane to add it in
+                switch (powerUpLocationLane)
+                {
+                    case 0:
+                        powerUpLocation = -1.5f;                                    // left lane
+                        break;
+                    case 1:
+                        powerUpLocation = 0f;                                       // mid lane
+                        break;
+                    case 2:
+                        powerUpLocation = 1.5f;                                     // right lane
+                        break;
+                    default:
+                        powerUpLocation = 0f;                                       // default to middle lane
+                        break;
+                }
 
-       */
-            // transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2)/* + distanceBetween, heightChange, transform.position.x*/);  // Determine the position to spawn new platform
-            transform.position = new Vector3(transform.position.x, heightChange, transform.position.z + (platformWidths[platformSelector] / 2) + distanceBetween);
+                        Powerup1.transform.position = transform.position + new Vector3(powerUpLocation, 1.0f);      // set powerup intrack - track position + lane + height;
+                Powerup1.SetActive(true);                                                                              // enabke the powerup
+            }
+
+                
+
+                transform.position = new Vector3(transform.position.x, heightChange, transform.position.z + (platformWidths[platformSelector] / 2) + distanceBetween);
 
 
 
@@ -122,61 +133,76 @@ public class PlatformGenerator : MonoBehaviour
 
                    if (Random.Range(0f, 100f) < randomCoinThreshold)        // if random value below threshold spawn a coin set
                    {
-                        int laneToSpawn = Random.Range(0, 3);
-                
+
+                        
+                        int laneToSpawn = Random.Range(0, 7);
+                        while (laneToSpawn == prelaneToSpawn)
+                        {
+                            laneToSpawn = Random.Range(0, 7);
+                        }
+                prelaneToSpawn = laneToSpawn;
                         switch (laneToSpawn)
                         {
                             case 0:
-                        
-                        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x - 1.5f, transform.position.y + 1f, transform.position.z));
+                                CoinLeftLane();
                                 break;
                             case 1:
-                                theCoinGenerator.SpawnCoins(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));        // spawn coin in center of platform
+                                CoinMiddleLane();
                                 break;
                             case 2:
-                                theCoinGenerator.SpawnCoins(new Vector3(transform.position.x + 1.5f, transform.position.y + 1f, transform.position.z));
+                                CoinRightLane();
                                 break;
+                            case 3:
+                                CoinLeftLane();
+                                CoinMiddleLane();
+                                break;
+                            case 4:
+                                CoinMiddleLane();
+                                CoinRightLane();
+                                break;
+                            case 5:
+                                CoinLeftLane();
+                                CoinRightLane();
+                                break;
+                            case 6:
+                                CoinLeftLane();
+                                CoinRightLane();
+                                CoinMiddleLane();
+                                break;
+
                             default:
-                                theCoinGenerator.SpawnCoins(new Vector3(transform.position.x + 1.5f, transform.position.y + 1f, transform.position.z));
-                                break;
-                }
+                                    CoinLeftLane();
+                                    CoinRightLane();
+                                    CoinMiddleLane();
+                                    break;
+
+                        
+                        }
 
 
 
                    }
             
-            /*   if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a coin set
-                {
-                    theCoinGenerator.SpawnObstacle(new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z));        // spawn coin in center of platform
-                }
-              */
-
-            // if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a low Obstacke
-            //{
-
-     
-            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);              // Randomize which platfomr to select
+           
+/*
+            // OBSTACLE 1
+            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);              // Randomize which Obstacle to select
+                                                                                            // While loop to ensure the obstancles are not repeated
             while (obstacleSelector == oldObstacleSelector)
             {
                 obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
 
             }
-            oldObstacleSelector = obstacleSelector;
-            //  Debug.Log("obstacleSelector" + obstacleSelector);
-            GameObject newLowObstacle = theObstacleObjectPools[obstacleSelector].GetPooledObject();
+                oldObstacleSelector = obstacleSelector;         // Remember the old obstacle number to check for later
+       
+            GameObject Obstacle1 = theObstacleObjectPools[obstacleSelector].GetPooledObject();      // Select Obstacle1 from the Pool
+            Vector3 obstacle1Location = new Vector3(0f, 2.5f, 0f);                                             // define where on the platform to place it, location 0 on Z
+            Obstacle1.transform.position = transform.position + obstacle1Location;                   // Set its position to platform position
+            Obstacle1.transform.rotation = transform.rotation;                                      // Set the rotation to be same as platfomr
+            Obstacle1.SetActive(true);                                                              // Set the Obstacle Active
 
 
-  
-            float lowObstacleXPosition = platformWidths[platformSelector] / 2;
-
-            Vector3 height = new Vector3(0f, 2.5f, 0f);
-            Vector3 lowObstaclePosition = new Vector3(0f, 2.5f, lowObstacleXPosition);            // Raise the obstaklce up a bit
-            newLowObstacle.transform.position = transform.position + height;             // Set its position to platform position
-            newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-            newLowObstacle.SetActive(true);
-
-
-            //AW
+            // OBSTACLE 2
             obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
             while (obstacleSelector == oldObstacleSelector)
             {
@@ -184,18 +210,14 @@ public class PlatformGenerator : MonoBehaviour
 
             }
             oldObstacleSelector = obstacleSelector;
-            // Debug.Log("obstacleSelector" + obstacleSelector);
-            // newLowObstacle1 = thePoolManager.GetRandomObject();
-            GameObject newLowObstacle1 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
-            //   Debug.Log("lowObstacleXPosition" + lowObstacleXPosition);  
-            float lowObstacleXPosition1 = platformWidths[platformSelector] / 2;
-            //  Debug.Log("lowObstacleXPosition1" + lowObstacleXPosition1);
-            Vector3 height1 = new Vector3(0f, 2.5f, 20f);
-            Vector3 lowObstaclePosition1 = new Vector3(0f, 2.5f, lowObstacleXPosition1);            // Raise the obstaklce up a bit
-            newLowObstacle1.transform.position = transform.position + height1;             // Set its position to platform position
-            newLowObstacle1.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-            newLowObstacle1.SetActive(true);
+            GameObject Obstacle2 = theObstacleObjectPools[obstacleSelector].GetPooledObject(); 
+            Vector3 obstacle2Location = new Vector3(0f, 2.5f, 20f);
+            Obstacle2.transform.position = transform.position + obstacle2Location;             // Set its position to platform position
+            Obstacle2.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+            Obstacle2.SetActive(true);
 
+
+            // OBSTACLE 3
             obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
             while (obstacleSelector == oldObstacleSelector)
             {
@@ -203,115 +225,57 @@ public class PlatformGenerator : MonoBehaviour
 
             }
             oldObstacleSelector = obstacleSelector;
-            GameObject newLowObstacle2 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
-            //   Debug.Log("lowObstacleXPosition" + lowObstacleXPosition);  
-            float lowObstacleXPosition2 = platformWidths[platformSelector] / 2;
-            //    Debug.Log("lowObstacleXPosition1" + lowObstacleXPosition1);
-            Vector3 height2 = new Vector3(0f, 2.5f, -20f);
-            Vector3 lowObstaclePosition2 = new Vector3(0f, 2.5f, lowObstacleXPosition2);            // Raise the obstaklce up a bit
-            newLowObstacle2.transform.position = transform.position + height2;             // Set its position to platform position
-            newLowObstacle2.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-            newLowObstacle2.SetActive(true);
+            GameObject Obstacle3 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
+            Vector3 obstacle3Location = new Vector3(0f, 2.5f, -20f);
+            Obstacle3.transform.position = transform.position + obstacle3Location;             // Set its position to platform position
+            Obstacle3.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+            Obstacle3.SetActive(true);
 
 
+            // OBSTACLE 4
+            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+            while (obstacleSelector == oldObstacleSelector)
+            {
+                obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
 
-            // set it visable
-            // }
+            }
+            oldObstacleSelector = obstacleSelector;
+            GameObject Obstacle4 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
+            Vector3 obstacle4Location = new Vector3(0f, 2.5f, -35f);
+            Obstacle4.transform.position = transform.position + obstacle4Location;             // Set its position to platform position
+            Obstacle4.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+            Obstacle4.SetActive(true);
+*/
+        
 
-
-            /*  if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a low Obstacke
-              {
-                  newLowObstacle1 = thePoolManager.GetRandomObject();
-                  float lowObstacleXPosition1 = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
-                  Vector3 lowObstaclePosition1 = new Vector3(0f, 2.5f, lowObstacleXPosition1 + 15f);            // Raise the obstaklce up a bit
-                  newLowObstacle1.transform.position = transform.position + lowObstaclePosition1;             // Set its position to platform position
-                  newLowObstacle1.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-                  newLowObstacle1.SetActive(true);                                     // set it visable
-              }
-
-              if (Random.Range(0f, 100f) < randomLowObstacleThreshold)        // if random value below threshold spawn a low Obstacke
-              {
-                  newLowObstacle2 = thePoolManager.GetRandomObject();
-                  float lowObstacleXPosition2 = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
-                  Vector3 lowObstaclePosition2 = new Vector3(0f, 2.5f, lowObstacleXPosition2 - 15f);            // Raise the obstaklce up a bit
-                  newLowObstacle2.transform.position = transform.position + lowObstaclePosition2;             // Set its position to platform position
-                  newLowObstacle2.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-                  newLowObstacle2.SetActive(true);                                     // set it visable
-              }
-            */
-
-            /*        if (Random.Range(0f, 100f) < randomHighObstacleThreshold)        // if random value below threshold spawn a high Obstacke
-                    {
-                        GameObject newHighObstacle = HighObstaclePool.GetPooledObject();      // get High obstacle from pool
-                        float highObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
-
-                        Vector3 highObstaclePosition = new Vector3(highObstacleXPosition, 2.5f, 0f);            // Raise the obstaklce up a bit
-                        newHighObstacle.transform.position = transform.position + highObstaclePosition;             // Set its position to platform position
-                        newHighObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-                        newHighObstacle.SetActive(true);                                     // set it visable
-                    }
-            */
-
-            /*  if (Random.Range(0f, 100f) < randomLowObstacleThreshold)
-              {
-                  Transform spawnPoint = PickSpawnPoint(containerString, spawnPointString);
-                  Vector3 newPosition = spawnPoint.transform.position;
-                  newLowObstacle1 = thePoolManager.GetRandomObject();
-                  float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
-                  Vector3 lowObstaclePosition = new Vector3(0f, 2.5f, lowObstacleXPosition);            // Raise the obstaklce up a bit
-                  newLowObstacle.transform.position = transform.position + lowObstaclePosition;             // Set its position to platform position
-                  newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-                  newLowObstacle.SetActive(true);
-              }
-            */
-
-            //   transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), transform.position.y, transform.position.z);  // Determine the position to spawn new platform
+            
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (platformWidths[platformSelector] / 2));
 
 
         }
     }
 
-    /* private Transform PickSpawnPoint(string spawnPointContainerString, string spawnPointString)
-      {
-          // We get container game object and then  the spawnPointContainer and get it's children which
-          // are all spawn points to create a spawn point. The benefit of this is so that we don't have
-          // to manually attach any game objects to the script, however we're more likely to have our code break
-          // if we were to rename or restructure the spawn points
-             Debug.Log("Picking sapawn point");
-          Transform container = transform.Find(spawnPointContainerString);
-             Debug.Log("find string" + container.Find(spawnPointString));
-          Transform spawnPointContainer = container.Find(spawnPointString);
+    
+    private void CoinLeftLane()
+    {
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x -1.7f, transform.position.y + 3.5f, transform.position.z));
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x -1.7f, transform.position.y + 3.5f, transform.position.z + 20f));
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x -1.7f, transform.position.y + 3.5f, transform.position.z - 20f));
+    }
 
+    private void CoinMiddleLane()
+    {
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z));        // spawn coin in center of platform
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z + 20f));
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z - 20f));
+    }
 
-          // Initially I first used GetComponentsInChildren, however it turns out that the function is
-          // poorly named and for some reason that also includes the parent component, ie the spawnPointContainer.
-          Transform[] spawnPoints = new Transform[spawnPointContainer.childCount];
-
-
-          for (int i = 0; i < spawnPointContainer.childCount; i++)
-          {
-                     Debug.Log("*********************spawnPointContainer.childCount " + spawnPointContainer.childCount);
-              //    Debug.Log("I value" + i);
-              spawnPoints[i] = spawnPointContainer.GetChild(i);
-          }
-
-
-          // If we don't have any spawn points the rest of our code will crash, let's just leave a message
-          // and quietly return
-          if (spawnPoints.Length == 0)
-          {
-              Debug.Log("We have a path has no spawn points!");
-          }
-
-
-          // We randomly pick one of our spawn points to use
-          int index = Random.Range(0, spawnPoints.Length);
-          return spawnPoints[index];
-      }
-    */
-
-
+    private void CoinRightLane()
+    {
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x +1.7f, transform.position.y + 3.5f, transform.position.z));
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x +1.7f, transform.position.y + 3.5f, transform.position.z + 20f));
+        theCoinGenerator.SpawnCoins(new Vector3(transform.position.x +1.7f, transform.position.y + 3.5f, transform.position.z - 20f));
+    }
 }
 
 

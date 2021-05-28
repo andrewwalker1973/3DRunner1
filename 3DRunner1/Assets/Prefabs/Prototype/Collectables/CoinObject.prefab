@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8118597113240566109}
+  - component: {fileID: 129112295391675993}
   m_Layer: 0
   m_Name: CoinObject
   m_TagString: Untagged
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &129112295391675993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566716008306948113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce58fc070c7ac384f9a3a29c1901ce0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformDestructionPoint: {fileID: 0}
 --- !u!1 &9141898567298578085
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +60,8 @@ GameObject:
   - component: {fileID: 9141898567298578139}
   - component: {fileID: 9141898567298578084}
   - component: {fileID: 8260930375014360531}
+  - component: {fileID: 3587103195265663210}
+  - component: {fileID: 8001696333352805600}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Coin
@@ -172,3 +188,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformDestructionPoint: {fileID: 0}
+--- !u!114 &3587103195265663210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9141898567298578085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bdcde60068d504c81cc4504e0e0269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  moveSpeed: 17
+--- !u!114 &8001696333352805600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9141898567298578085}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7b5d84bb32f734c8bd53443fa8a9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

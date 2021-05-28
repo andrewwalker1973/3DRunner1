@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;           //TextMesh Pro Text Field for score

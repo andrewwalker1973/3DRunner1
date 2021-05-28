@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+  // Working Code
+  /*
     // Camrea controls when in 2D
    //Variables for camera follow next to player
       public PlayerMotor thePlayerObject;            // public object for the actual player gameobject
@@ -25,7 +27,8 @@ public class CameraController : MonoBehaviour
       }
 
      
-
+    */
+  // End working code
 
 
     /* public Transform target;
@@ -84,48 +87,70 @@ public class CameraController : MonoBehaviour
      }
     */
 
-    /* private Transform lookAt;
+     private Transform lookAt;
      public  Vector3 startOffset;
      private Vector3 moveVector;
+    float smoothSpeed = 0.125f;
 
      private float transition = 0.0f;
      private float animationDuration = 2.0f;
-     // private Vector3 animationOffset = new Vector3(0, 5, -133);
+    // private Vector3 animationOffset = new Vector3(0, 5, -133);
 
-     private Vector3 animationOffset = new Vector3(33, 13, -0.5f); 
-
-     private void Start()
+    //  private Vector3 animationOffset = new Vector3(33, /*13*/ 0, -0.5f); 
+    private Vector3 animationOffset = new Vector3(10, 0, -0.5f);
+    private Vector3 velocity = Vector3.zero;
+    private void Start()
      {
          lookAt = GameObject.FindGameObjectWithTag ("Player").transform;
        //  startOffset = transform.position - lookAt.position;
      }
 
-     private void Update()
+    // private void Update()
+    private void LateUpdate()
      {
-         moveVector = lookAt.position + startOffset;
+        /* moveVector = lookAt.position + startOffset;
 
          // X
          moveVector.x = 0;
 
          // Y
          moveVector.y = Mathf.Clamp(moveVector.y, 3, 5);   // clamp y to be between 3 and 5 height
+        */
+        // Vector3 desiredPosition = lookAt.position + startOffset;
+        //Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        
+     /*   Vector3 desiredPosition = lookAt.position + startOffset;
+        Vector3 animposition = lookAt.position + animationOffset;
+        desiredPosition.x = 0;
+        desiredPosition.y = 2.5f;
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
+     */
 
-         if (transition > 1.0f)
-         {
-             transform.position = moveVector;
+       // transform.position = smoothedPosition;
+            
+         //   if (transition > 1.0f)
+      //   {
+            Vector3 desiredPosition = lookAt.position + startOffset;
+           
+            desiredPosition.x = 0;
+            desiredPosition.y = 2.5f;
+            transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
 
-         }
-         else
-         {
-             // Animation at start of Game
-             transform.position = Vector3.Lerp(moveVector + animationOffset, moveVector, transition);
+
+      //  }
+      //  else
+      //   {
+           /* // Animation at start of Game
+            Vector3 animposition = lookAt.position + animationOffset;
+            transform.position = Vector3.SmoothDamp(transform.position, animposition, ref velocity, smoothSpeed);
              transition += Time.deltaTime * 1 / animationDuration;
-             transform.LookAt(lookAt.position + Vector3.up);
-         }
+              transform.LookAt(lookAt.position + Vector3.up);
+           */
+      //  }
 
      }
 
-     */
+     
 
     
 }
