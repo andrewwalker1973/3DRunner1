@@ -28,8 +28,8 @@ public class PlayerMotor : MonoBehaviour
     private int desiredLane = 1; // 0=left 1=middle 2=right
 
     // speed Modifier
-    private float originalSpeed = 15.0f; // was 7
-    public float speed = 15.0f; // was 7
+    private float originalSpeed = 18.0f; // was 7
+    public float speed = 18.0f; // was 7
     private float speedIncreaseLastTick;
     private float speedIncreaseTime = 2.5f;
     private float speedIncreaseAmount = 0.1f;
@@ -60,29 +60,14 @@ public class PlayerMotor : MonoBehaviour
         //   anim = GetComponent<Animator>();
           // magnet = gameObject.GetComponent<Magnet>();
 
-        // Magnet stuff
-        //   coinDetectorobj = GameObject.FindGameObjectWithTag("CoinDetector");
-        //  coinDetectorobj.SetActive(false);
-        //   coinMoveScript = gameObject.GetComponent<CoinMove>();
-
-
+        
         //origionroot
         //  gameObject.transform.SetParent(OrigionRoot.transform, false);
 
 
     }
 
-    // added init for powerup process
-    private void Awake()
-    {
-        // Create an empty dictionary and list, otherwise they'll be null later when we
-        // try to access them and crash.
-        //   powerUpDictionary = new Dictionary<PowerUpType, PowerUp>();
-        //   itemsToRemove = new List<PowerUpType>();
-
-    }
-
-
+    
     private void Update()
     {
 
@@ -253,65 +238,22 @@ public class PlayerMotor : MonoBehaviour
 
     }
 
-    private void Crash()
-    {
-      //  anim.SetTrigger("Death");
-        isRunning = false;
-     //   GameManager.Instance.OnDeath();
-    }
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        switch (hit.gameObject.tag)
-        {
-            case "Obstacle":
-                Crash();
-                break;
-        }
-    }
+
+   
 
 
 
 
 
 
-    IEnumerator ActivateCoin()
-    {
-        Debug.Log("Activate Coin");
-        // coinDetectorobj.SetActive(true);
-        yield return new WaitForSeconds(40f);
-        //  coinDetectorobj.SetActive(false);
-    }
-
-    IEnumerator RemoveMagnet()
-    {
-        Debug.Log("Magnet active ");
-        //coinDetectorobj.SetActive(true);
-        yield return new WaitForSeconds(20f);
-        //  coinMoveScript.enabled = true;
-        Transform magnetCollider = Player.transform.Find("Magnet Collider(Clone)");
-
-        print(magnetCollider);
-        Destroy(magnetCollider.gameObject);
-        magnetCollider = null;
-    }
+    
 
 
-    /*  public void UpdateSpawnOrigin(Vector3 originDelta)
-      {
-
-          // currentSpawnZ = currentSpawnZ - 200;
-     transform.position = OrigionRoot.transform.position;
-
-         // transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-
-
-
-      }
-    */
+   
 
     private void OnTriggerEnter(Collider other)
     {
-        // Debug.Log("enter");
+  
         if (other.gameObject.CompareTag("Obstacle"))
         {
             Debug.Log("Hit obstalce");
@@ -327,7 +269,8 @@ public class PlayerMotor : MonoBehaviour
             if (isSliding == true)                      // If the Player is sliding, they kick the feet out from under enemy and they die
             {
 
-                Destroy(other.gameObject);          // Code to destroy the object that we collided with
+                other.gameObject.SetActive(false);          // Code to destroy the object that we collided with //AW change to pooling
+                theScoreManager.AddEnemy(100);              // give  pints for killing enemy
             }
             else
             {
@@ -342,6 +285,7 @@ public class PlayerMotor : MonoBehaviour
                 }
             }
         }
+        
 
 
 

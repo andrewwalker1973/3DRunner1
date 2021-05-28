@@ -3,7 +3,10 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AudioManager
     - CameraController
+    - Coin
     - CoinGenerator
+    - CoinMove
+    - CrystalPickup
     - DeathMenu
     - GameManager
     - HiScoreMenu
@@ -138,9 +141,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2810}
     - Class: 114
-      Script: {instanceID: 2960}
+      Script: {instanceID: 2958}
     - Class: 114
-      Script: {instanceID: 3036}
+      Script: {instanceID: 3034}
+    - Class: 114
+      Script: {instanceID: 3130}
     - Class: 114
       Script: {instanceID: 3150}
     - Class: 114
@@ -152,23 +157,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3704}
     - Class: 114
-      Script: {instanceID: 3884}
+      Script: {instanceID: 3768}
     - Class: 114
-      Script: {instanceID: 3966}
+      Script: {instanceID: 3886}
     - Class: 114
-      Script: {instanceID: 4188}
+      Script: {instanceID: 3968}
     - Class: 114
-      Script: {instanceID: 4226}
+      Script: {instanceID: 4192}
     - Class: 114
-      Script: {instanceID: 4602}
+      Script: {instanceID: 4230}
     - Class: 114
-      Script: {instanceID: 4712}
+      Script: {instanceID: 4606}
     - Class: 114
-      Script: {instanceID: 4752}
+      Script: {instanceID: 4716}
     - Class: 114
-      Script: {instanceID: 4890}
+      Script: {instanceID: 4756}
     - Class: 114
-      Script: {instanceID: 4974}
+      Script: {instanceID: 4892}
+    - Class: 114
+      Script: {instanceID: 4976}
     - Class: 114
       Script: {instanceID: 5286}
     - Class: 114
@@ -177,6 +184,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5712}
     - Class: 114
       Script: {instanceID: 6034}
+    - Class: 114
+      Script: {instanceID: 46160}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -184,6 +193,8 @@ ScriptsOnlyBuild:
     - Class: 134
       Script: {instanceID: 0}
     - Class: 135
+      Script: {instanceID: 0}
+    - Class: 136
       Script: {instanceID: 0}
     - Class: 143
       Script: {instanceID: 0}
@@ -259,7 +270,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2814}
     - Class: 114
-      Script: {instanceID: 2960}
+      Script: {instanceID: 2958}
     - Class: 114
       Script: {instanceID: 3150}
     - Class: 114
@@ -281,35 +292,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3716}
     - Class: 114
-      Script: {instanceID: 3856}
+      Script: {instanceID: 3858}
     - Class: 114
-      Script: {instanceID: 3884}
+      Script: {instanceID: 3886}
     - Class: 114
-      Script: {instanceID: 3966}
+      Script: {instanceID: 3968}
     - Class: 114
-      Script: {instanceID: 4032}
+      Script: {instanceID: 4034}
     - Class: 114
-      Script: {instanceID: 4072}
+      Script: {instanceID: 4074}
     - Class: 114
-      Script: {instanceID: 4108}
-    - Class: 114
-      Script: {instanceID: 4196}
+      Script: {instanceID: 4110}
     - Class: 114
       Script: {instanceID: 4200}
     - Class: 114
-      Script: {instanceID: 4264}
+      Script: {instanceID: 4204}
     - Class: 114
-      Script: {instanceID: 4372}
+      Script: {instanceID: 4268}
     - Class: 114
-      Script: {instanceID: 4538}
+      Script: {instanceID: 4376}
     - Class: 114
-      Script: {instanceID: 4978}
+      Script: {instanceID: 4542}
     - Class: 114
-      Script: {instanceID: 5144}
+      Script: {instanceID: 4980}
     - Class: 114
-      Script: {instanceID: 5176}
+      Script: {instanceID: 5146}
     - Class: 114
-      Script: {instanceID: 5194}
+      Script: {instanceID: 5178}
+    - Class: 114
+      Script: {instanceID: 5196}
     - Class: 114
       Script: {instanceID: 5316}
     - Class: 114
@@ -573,7 +584,7 @@ ScriptsOnlyBuild:
     className: ColorCurves
   - hash:
       serializedVersion: 2
-      Hash: 4950597dbde7ed851872966d1dd86b67
+      Hash: 55f866acfc26fb88af35a37aeeef9bac
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ScoreManager
@@ -597,7 +608,7 @@ ScriptsOnlyBuild:
     className: PixelPerfectCamera
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 4cfc4c1637c0cc05d7d7ae30d562d2f1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PowerUpManager
@@ -699,6 +710,12 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CoinMove
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -741,7 +758,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 29f5db5cb8e21f5af4a78ed42ffdad27
+      Hash: 27d42a004451d2a53fdff24ff62555c2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlatformGenerator
@@ -789,7 +806,7 @@ ScriptsOnlyBuild:
     className: TestRunCallbackListener
   - hash:
       serializedVersion: 2
-      Hash: 6334e6654677715db46f45b360d3274f
+      Hash: 9006c48912da1af41c8eacbac1be9da8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraController
@@ -883,6 +900,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: MarkerTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 7d92b26560eacca423be3f845bf0805f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Coin
   - hash:
       serializedVersion: 2
       Hash: 8e6ceabfd38a184413d69b7db56c89cc
@@ -1281,7 +1304,7 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: dc19ac254921c02fdd330d8518f7ca05
+      Hash: ffd0eda3db0bc8e6be9196734e56160b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMotor
@@ -1395,7 +1418,7 @@ ScriptsOnlyBuild:
     className: TMP_PhoneNumberValidator
   - hash:
       serializedVersion: 2
-      Hash: bbb0b873c701819b797c6b23bdba17b6
+      Hash: 5c6c413a1ed023e20d0d58afdd7f480c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PowerUps
@@ -1543,8 +1566,14 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
+  - hash:
+      serializedVersion: 2
+      Hash: 5c1b51ec5108f6e56056a52ab16fca9a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CrystalPickup
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/MainGame.unity
-  playerPath: G:/Users/Andrew/projects/GIT Projects/3DRunner1/3DRunner1/Build/3drunner1.apk
+  playerPath: G:/Users/Andrew/projects/GIT Projects/3DRunner1/3DRunner1/Build/3drunner2.apk

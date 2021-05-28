@@ -33,6 +33,7 @@ public class PlatformGenerator : MonoBehaviour
 
     public float powerUpHeight;                     // How high to pisiton powerp
     public ObjectPooler[] thePowerUpPools;                // the pool to reference for powerups
+    public ObjectPooler[] thecrystalPools;                // the pool to reference for Crystals
     public float powerUpThreshold;                  // what is the threshold for appearing
 
 
@@ -46,6 +47,19 @@ public class PlatformGenerator : MonoBehaviour
     private int powerUpLocationLane = 0;
     private float powerUpLocation = 0f;
 
+    public float crystalThreshold;
+    private int crystalLocationLane = 0;
+    private float crystalLocation = 0f;
+    private int crystalSelector;
+    private float crystalLocation_offset = 15f;
+
+    // Enemy
+    public float enemyThreshold;
+    public ObjectPooler[] theEnemyPools;                // the pool to reference for Enemies
+    private int enemyLocationLane = 0;
+    private float enemyLocation = 0f;
+    private int enemySelector;
+    private float enemyLocation_offset = -15f;
 
 
     void Start()
@@ -115,9 +129,65 @@ public class PlatformGenerator : MonoBehaviour
                 Powerup1.SetActive(true);                                                                              // enabke the powerup
             }
 
-                
+            // Crystal Picup
+            if (Random.Range(0f, 100f) < crystalThreshold)
+            {
+                crystalSelector = Random.Range(0, thecrystalPools.Length);              // Get random powerup from Pool
+                GameObject crystal1 = thecrystalPools[crystalSelector].GetPooledObject();       // make it a game object
+                crystalLocationLane = Random.Range(0, 3);                                       // randomize which lane to add it in
+                switch (crystalLocationLane)
+                {
+                    case 0:
+                        crystalLocation = -1.5f;                                    // left lane
+                        break;
+                    case 1:
+                        crystalLocation = 0f;                                       // mid lane
+                        break;
+                    case 2:
+                        crystalLocation = 1.5f;                                     // right lane
+                        break;
+                    default:
+                        crystalLocation = 0f;                                       // default to middle lane
+                        break;
+                }
 
-                transform.position = new Vector3(transform.position.x, heightChange, transform.position.z + (platformWidths[platformSelector] / 2) + distanceBetween);
+                crystal1.transform.position = transform.position + new Vector3(crystalLocation, 2.5f, crystalLocation_offset);      // set powerup intrack - track position + lane + height;
+                crystal1.SetActive(true);                                                                              // enabke the powerup
+                crystal1.transform.GetChild(0).gameObject.SetActive(true);
+            }
+
+
+            // Enemy selector
+            // Crystal Picup
+            if (Random.Range(0f, 100f) < enemyThreshold)
+            {
+                enemySelector = Random.Range(0, theEnemyPools.Length);              // Get random powerup from Pool
+                GameObject enemy1 = theEnemyPools[enemySelector].GetPooledObject();       // make it a game object
+                enemyLocationLane = Random.Range(0, 3);                                       // randomize which lane to add it in
+                switch (enemyLocationLane)
+                {
+                    case 0:
+                        enemyLocation = -1.5f;                                    // left lane
+                        break;
+                    case 1:
+                        enemyLocation = 0f;                                       // mid lane
+                        break;
+                    case 2:
+                        enemyLocation = 1.5f;                                     // right lane
+                        break;
+                    default:
+                        enemyLocation = 0f;                                       // default to middle lane
+                        break;
+                }
+
+                enemy1.transform.position = transform.position + new Vector3(enemyLocation, 2.5f, enemyLocation_offset);      // set powerup intrack - track position + lane + height;
+                enemy1.SetActive(true);                                                                              // enabke the powerup
+                enemy1.transform.GetChild(0).gameObject.SetActive(true);
+            }
+
+
+
+            transform.position = new Vector3(transform.position.x, heightChange, transform.position.z + (platformWidths[platformSelector] / 2) + distanceBetween);
 
 
 
@@ -182,73 +252,73 @@ public class PlatformGenerator : MonoBehaviour
 
 
                    }
-            
-           
-/*
-            // OBSTACLE 1
-            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);              // Randomize which Obstacle to select
-                                                                                            // While loop to ensure the obstancles are not repeated
-            while (obstacleSelector == oldObstacleSelector)
-            {
-                obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
 
-            }
-                oldObstacleSelector = obstacleSelector;         // Remember the old obstacle number to check for later
-       
-            GameObject Obstacle1 = theObstacleObjectPools[obstacleSelector].GetPooledObject();      // Select Obstacle1 from the Pool
-            Vector3 obstacle1Location = new Vector3(0f, 2.5f, 0f);                                             // define where on the platform to place it, location 0 on Z
-            Obstacle1.transform.position = transform.position + obstacle1Location;                   // Set its position to platform position
-            Obstacle1.transform.rotation = transform.rotation;                                      // Set the rotation to be same as platfomr
-            Obstacle1.SetActive(true);                                                              // Set the Obstacle Active
-
-
-            // OBSTACLE 2
-            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
-            while (obstacleSelector == oldObstacleSelector)
-            {
-                obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
-
-            }
-            oldObstacleSelector = obstacleSelector;
-            GameObject Obstacle2 = theObstacleObjectPools[obstacleSelector].GetPooledObject(); 
-            Vector3 obstacle2Location = new Vector3(0f, 2.5f, 20f);
-            Obstacle2.transform.position = transform.position + obstacle2Location;             // Set its position to platform position
-            Obstacle2.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-            Obstacle2.SetActive(true);
-
-
-            // OBSTACLE 3
-            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
-            while (obstacleSelector == oldObstacleSelector)
-            {
-                obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
-
-            }
-            oldObstacleSelector = obstacleSelector;
-            GameObject Obstacle3 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
-            Vector3 obstacle3Location = new Vector3(0f, 2.5f, -20f);
-            Obstacle3.transform.position = transform.position + obstacle3Location;             // Set its position to platform position
-            Obstacle3.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-            Obstacle3.SetActive(true);
-
-
-            // OBSTACLE 4
-            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
-            while (obstacleSelector == oldObstacleSelector)
-            {
-                obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
-
-            }
-            oldObstacleSelector = obstacleSelector;
-            GameObject Obstacle4 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
-            Vector3 obstacle4Location = new Vector3(0f, 2.5f, -35f);
-            Obstacle4.transform.position = transform.position + obstacle4Location;             // Set its position to platform position
-            Obstacle4.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-            Obstacle4.SetActive(true);
-*/
-        
 
             
+                        // OBSTACLE 1
+                        obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);              // Randomize which Obstacle to select
+                                                                                                        // While loop to ensure the obstancles are not repeated
+                        while (obstacleSelector == oldObstacleSelector)
+                        {
+                            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+
+                        }
+                            oldObstacleSelector = obstacleSelector;         // Remember the old obstacle number to check for later
+
+                        GameObject Obstacle1 = theObstacleObjectPools[obstacleSelector].GetPooledObject();      // Select Obstacle1 from the Pool
+                        Vector3 obstacle1Location = new Vector3(0f, 2.5f, 0f);                                             // define where on the platform to place it, location 0 on Z
+                        Obstacle1.transform.position = transform.position + obstacle1Location;                   // Set its position to platform position
+                        Obstacle1.transform.rotation = transform.rotation;                                      // Set the rotation to be same as platfomr
+                        Obstacle1.SetActive(true);                                                              // Set the Obstacle Active
+
+
+                        // OBSTACLE 2
+                        obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+                        while (obstacleSelector == oldObstacleSelector)
+                        {
+                            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+
+                        }
+                        oldObstacleSelector = obstacleSelector;
+                        GameObject Obstacle2 = theObstacleObjectPools[obstacleSelector].GetPooledObject(); 
+                        Vector3 obstacle2Location = new Vector3(0f, 2.5f, 20f);
+                        Obstacle2.transform.position = transform.position + obstacle2Location;             // Set its position to platform position
+                        Obstacle2.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+                        Obstacle2.SetActive(true);
+
+
+                        // OBSTACLE 3
+                        obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+                        while (obstacleSelector == oldObstacleSelector)
+                        {
+                            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+
+                        }
+                        oldObstacleSelector = obstacleSelector;
+                        GameObject Obstacle3 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
+                        Vector3 obstacle3Location = new Vector3(0f, 2.5f, -20f);
+                        Obstacle3.transform.position = transform.position + obstacle3Location;             // Set its position to platform position
+                        Obstacle3.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+                        Obstacle3.SetActive(true);
+
+
+                        // OBSTACLE 4
+                        obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+                        while (obstacleSelector == oldObstacleSelector)
+                        {
+                            obstacleSelector = Random.Range(0, theObstacleObjectPools.Length);
+
+                        }
+                        oldObstacleSelector = obstacleSelector;
+                        GameObject Obstacle4 = theObstacleObjectPools[obstacleSelector].GetPooledObject();
+                        Vector3 obstacle4Location = new Vector3(0f, 2.5f, -35f);
+                        Obstacle4.transform.position = transform.position + obstacle4Location;             // Set its position to platform position
+                        Obstacle4.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+                        Obstacle4.SetActive(true);
+            
+
+
+
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (platformWidths[platformSelector] / 2));
 
 
