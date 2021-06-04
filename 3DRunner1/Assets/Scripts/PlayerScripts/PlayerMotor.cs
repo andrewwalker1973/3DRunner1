@@ -76,11 +76,11 @@ public class PlayerMotor : MonoBehaviour
 
 
 
-        if (!isRunning)
+        /*if (!theGameManager.RunbuttonPressed)
         {
             return; // if game is not started, dont run below code
         }
-
+        */
         if (Time.time - speedIncreaseLastTick > speedIncreaseTime)
         {
             speedIncreaseLastTick = Time.time;

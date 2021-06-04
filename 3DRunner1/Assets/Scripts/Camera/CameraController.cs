@@ -97,7 +97,7 @@ public class CameraController : MonoBehaviour
     // private Vector3 animationOffset = new Vector3(0, 5, -133);
 
     //  private Vector3 animationOffset = new Vector3(33, /*13*/ 0, -0.5f); 
-    private Vector3 animationOffset = new Vector3(10, 0, -0.5f);
+    private Vector3 animationOffset = new Vector3(10, 5, -0.5f);
     private Vector3 velocity = Vector3.zero;
     private void Start()
      {
@@ -133,7 +133,7 @@ public class CameraController : MonoBehaviour
             Vector3 desiredPosition = lookAt.position + startOffset;
            
             desiredPosition.x = 0;
-            desiredPosition.y = 2.5f;
+            desiredPosition.y = 5f;
             transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
 
 

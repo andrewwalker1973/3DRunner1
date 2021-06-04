@@ -21,16 +21,18 @@ public class CoinMove : MonoBehaviour
 
     }
 
-   /* private void OnTriggerEnter(Collider other)
+  /*  private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player Bubble")
+        if (other.gameObject.tag == "Player")
         {
-            // Destroy(gameObject);
+            gameObject.SetActive(false);
+            Debug.Log("Disable from COin");
             
             
         }
 
-    */
-   // }
+    
+    }
+  */
    
 }

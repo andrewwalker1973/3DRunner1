@@ -5,8 +5,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public Transform playerTransform;
-    public float moveSpeed = 17f;
-
+    public float moveSpeed = 30f; // was 17
     CoinMove coinMoveScript;
 
     
@@ -23,7 +22,7 @@ public class Coin : MonoBehaviour
        
         if (other.gameObject.tag == "CoinDetector")
         {
-            Debug.Log("Enableing coin move");
+           
             coinMoveScript.enabled = true;
         }
     }

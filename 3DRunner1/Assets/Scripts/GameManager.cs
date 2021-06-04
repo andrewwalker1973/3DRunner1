@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,7 +20,8 @@ public class GameManager : MonoBehaviour
     public HiScoreMenu theHiScoreMenu;
     public bool powerUpReset;                       // bool to reset the powerup to turn them off on restart
 
- 
+    public bool RunbuttonPressed = false;
+    public Button theRunbutton;
 
    
 
@@ -75,4 +77,6 @@ public class GameManager : MonoBehaviour
 
         
     }
+
+    
 }

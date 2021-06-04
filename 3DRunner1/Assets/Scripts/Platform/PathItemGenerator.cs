@@ -6,29 +6,63 @@ public class PathItemGenerator : MonoBehaviour
 {
     public float PowerupSpawnRate = 0.2f; // from 0 to 1
     private string containerString = "Container";
-    private string spawnPointString = "Spawn Points"; // string to find our Spawn Points container
+    private string straightCoinSpawnPointString = "Straight Coin Spawn Points"; // string to find our Spawn Points container for straight line coins
+    private string jumpCoinSpawnPointString = "Jump Coin Spawn Points"; // string to find our Spawn Points container for straight line coins
+    private string singleLaneHighLowSpawnPointString = "Single Lane low_high Spawn Points"; // string to find our Spawn Points container for straight line coins
     private string powerupSpawnPointString = "Powerup Spawn Points"; // string to find our powerup spawn points container
     private int numberOfCoinsToGenerate = 2;  //was 5
     private int coinDistanceGap = 20;
 
+    private CoinGenerator theCoinGenerator;      // reference the coin genertion script
+   // public ObjectPooler[] thecrystalPools;                // the pool to reference for Crystals
+    private int crystalSelector;
+    public  PlatformGenerator thePlatformGenerator;
+    public StraightLineCoin theStraightLineCoin;
+    //public ObstaclePool[] theObstacleObjectPools;      // Refernce the object pooler script
 
-    private GameObject newLowObstacle;
-    public PoolManager thePoolManager;
+    public JumpLineCoin theJumpLineCoin;
 
+    private GameObject coin1;
+    private GameObject coin2;
+
+    private GameObject coinObject;
+    private int obstacleSelector = 0;           // int to number the platforms
+                                                //  public GameObject thecrystalPools;
+
+
+    /*  private void OnEnable()
+      {
+         theStraightLineCoin = FindObjectOfType<StraightLineCoin>();
+      }
+    */
     // Start is called before the first frame update
     void Start()
     {
         // SpawnCoin();
         // SpawnPowerUp();
         //StartCoroutine(resetSpawnpoints());
+          thePlatformGenerator = FindObjectOfType<PlatformGenerator>();
+        // theCrystalPool = FindObjectOfType<ObjectPooler>();
+      theStraightLineCoin = FindObjectOfType<StraightLineCoin>();
+        theJumpLineCoin = FindObjectOfType<JumpLineCoin>();
+       // theObstacleObjectPools = FindObjectsOfType<ObstaclePool>();
+
+
+
+
+
     }
 
     public void OnEnable()
     {
-
+       theStraightLineCoin = FindObjectOfType<StraightLineCoin>();
+       theJumpLineCoin = FindObjectOfType<JumpLineCoin>();
+        thePlatformGenerator = FindObjectOfType<PlatformGenerator>();
         //   Debug.Log("on enable running");
-        SpawnCoin();
-  //      SpawnPowerUp();
+        SpawnStraightCoin();
+        SpawnJumpCoin();
+        SpawnSingleLaneHighLowObstacle();
+        //      SpawnPowerUp();
     }
 
 
@@ -36,75 +70,87 @@ public class PathItemGenerator : MonoBehaviour
     {
         //    Debug.Log("Restet spawn points");
         yield return new WaitForSeconds(10f);
-        SpawnCoin();
+        SpawnStraightCoin();
+        SpawnJumpCoin();
+        SpawnSingleLaneHighLowObstacle();
         StartCoroutine(resetSpawnpoints());
     }
 
 
-  /*  private void SpawnCoin()
-    {
-
-        //  Debug.Log("SpawnCoin COin");
-        Transform spawnPoint = PickSpawnPoint(containerString, spawnPointString);
-       // Debug.Log("Spawn point" + spawnPoint);
-        // We then create a loop of X items that are Y units apart from each other
-        for (int i = 0; i < numberOfCoinsToGenerate; i++)
+    private void SpawnStraightCoin()
+    {     
+        Transform spawnPoint = PickSpawnPoint(containerString, straightCoinSpawnPointString);
+        Vector3 newPosition = spawnPoint.transform.position;      
+        if (theStraightLineCoin.coinPoolOnline != false)
         {
-            Vector3 newPosition = spawnPoint.transform.position;
-          //  Debug.Log("newPosition " + newPosition);
-            newPosition.z += i * numberOfCoinsToGenerate;
-            Instantiate(ItemLoaderManager.Instance.Coin, newPosition, Quaternion.identity);
+            /*coin1 = theStraightLineCoin.GetPooledObject();
+            // coin1.transform.localPosition = Vector3.zero;
+            // coin1.transform.GetChild(0).gameObject.transform.localPosition = Vector3.zero;
+            coin1.transform.position = newPosition + new Vector3(0f, 0f, 0f);
+            coin1.SetActive(true);
+            coin1.transform.GetChild(0).gameObject.SetActive(true);
+            coin1.transform.GetChild(1).gameObject.SetActive(true);
+            coin1.transform.GetChild(2).gameObject.SetActive(true);
+            */
+            thePlatformGenerator.SpawnStraightCoins(newPosition);
         }
-    }
-  */
-    private void SpawnCoin()
-    {
+       
 
-        //  Debug.Log("SpawnCoin COin");
-        Transform spawnPoint = PickSpawnPoint(containerString, spawnPointString);
-        // Debug.Log("Spawn point" + spawnPoint);
-        // We then create a loop of X items that are Y units apart from each other
-                   Vector3 newPosition = spawnPoint.transform.position;
-            //  Debug.Log("newPosition " + newPosition);
-          //  newPosition.z += i * numberOfCoinsToGenerate;
-          //  Instantiate(ItemLoaderManager.Instance.Coin, newPosition, Quaternion.identity);
-        newLowObstacle = thePoolManager.GetRandomObject();
-        Debug.Log("random obj " + newLowObstacle);
-        //  float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
-          Vector3 lowObstaclePosition = spawnPoint.transform.position;            // Raise the obstaklce up a bit
-        //  newLowObstacle.transform.position = transform.position + lowObstaclePosition;             // Set its position to platform position
-      //     newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-        newLowObstacle.SetActive(true);
-
+        //  }
     }
 
-    private void SpawnPowerUp()
+    private void SpawnJumpCoin()
     {
-        // We randomly generate a number and divide it by 100. If it is lower than the spawn rate chance we set,
-        // then we create the powerup.
-        Debug.Log("Start Spawn");
-        bool generatePowerUp = Random.Range(0, 100) / 100f < PowerupSpawnRate;
-        if (generatePowerUp)
+        Transform spawnPoint = PickSpawnPoint(containerString, jumpCoinSpawnPointString);
+        Vector3 newPosition = spawnPoint.transform.position;
+        if (theStraightLineCoin.coinPoolOnline != false)
         {
-            Transform spawnPoint = PickSpawnPoint(containerString, powerupSpawnPointString);
-            Vector3 newPosition = spawnPoint.transform.position;
+            thePlatformGenerator.SpawnJumpCoins(newPosition);
+        }
 
-            // Get our Power-ups and randomly pick one of them to show
-            //    GameObject[] powerUps = ItemLoaderManager.Instance.PowerUps;
-            //     int powerUpIndex = Random.Range(0, powerUps.Length);
-            //      Instantiate(powerUps[powerUpIndex], newPosition, Quaternion.identity);
-            //   Debug.Log("Creating power up an spawn point");
-            Debug.Log("Power up spawn");
-            newLowObstacle = thePoolManager.GetRandomObject();
-          //  float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
-          //  Vector3 lowObstaclePosition = new Vector3(0f, 2.5f, lowObstacleXPosition);            // Raise the obstaklce up a bit
-            newLowObstacle.transform.position = transform.position ;             // Set its position to platform position
-            newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
-            newLowObstacle.SetActive(true);
+
+        //  }
+    }
+
+    private void SpawnSingleLaneHighLowObstacle()
+    {
+        Transform spawnPoint = PickSpawnPoint(containerString, singleLaneHighLowSpawnPointString);
+        Vector3 newPosition = spawnPoint.transform.position;
+        if (theStraightLineCoin.coinPoolOnline != false)
+        {
+            thePlatformGenerator.SpawnSingleLaneHighLowObstacles(newPosition);
         }
     }
 
 
+
+    /*  private void SpawnPowerUp()
+      {
+          // We randomly generate a number and divide it by 100. If it is lower than the spawn rate chance we set,
+          // then we create the powerup.
+          Debug.Log("Start Spawn");
+          bool generatePowerUp = Random.Range(0, 100) / 100f < PowerupSpawnRate;
+          if (generatePowerUp)
+          {
+              Transform spawnPoint = PickSpawnPoint(containerString, powerupSpawnPointString);
+              Vector3 newPosition = spawnPoint.transform.position;
+
+              // Get our Power-ups and randomly pick one of them to show
+              //    GameObject[] powerUps = ItemLoaderManager.Instance.PowerUps;
+              //     int powerUpIndex = Random.Range(0, powerUps.Length);
+              //      Instantiate(powerUps[powerUpIndex], newPosition, Quaternion.identity);
+              //   Debug.Log("Creating power up an spawn point");
+              Debug.Log("Power up spawn");
+              newLowObstacle = thePoolManager.GetRandomObject();
+            //  float lowObstacleXPosition = Random.Range(-platformWidths[platformSelector] / 2 + 1f, platformWidths[platformSelector] / 2 - 1f); // work out width of platform and raandomize position, but add or remove 1f to prevent it being on the edge
+            //  Vector3 lowObstaclePosition = new Vector3(0f, 2.5f, lowObstacleXPosition);            // Raise the obstaklce up a bit
+              newLowObstacle.transform.position = transform.position ;             // Set its position to platform position
+              newLowObstacle.transform.rotation = transform.rotation;             // Set the rotation to be same as platfomr
+              newLowObstacle.SetActive(true);
+          }
+      }
+
+      */
     private Transform PickSpawnPoint(string spawnPointContainerString, string spawnPointString)
     {
         // We get container game object and then  the spawnPointContainer and get it's children which
@@ -115,6 +161,10 @@ public class PathItemGenerator : MonoBehaviour
         Transform container = transform.Find(spawnPointContainerString);
         //   Debug.Log("find string" + container.Find(spawnPointString));
         Transform spawnPointContainer = container.Find(spawnPointString);
+        if (spawnPointContainer is null)
+        {
+            Debug.Log("nulll;; ");
+        }
 
 
         // Initially I first used GetComponentsInChildren, however it turns out that the function is
@@ -142,4 +192,6 @@ public class PathItemGenerator : MonoBehaviour
         int index = Random.Range(0, spawnPoints.Length);
         return spawnPoints[index];
     }
+
+
 }
