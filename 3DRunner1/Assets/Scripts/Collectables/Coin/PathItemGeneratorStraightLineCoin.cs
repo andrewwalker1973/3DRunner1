@@ -79,8 +79,8 @@ public class PathItemGeneratorStraightLineCoin : MonoBehaviour
 
         for (int i = 0; i < spawnPointContainer.childCount; i++)
         {
-            //       Debug.Log("*********************spawnPointContainer.childCount " + spawnPointContainer.childCount);
-            //    Debug.Log("I value" + i);
+             //     Debug.Log("*********************spawnPointContainer.childCount " + spawnPointContainer.childCount);
+              // Debug.Log("I value" + i);
             spawnPoints[i] = spawnPointContainer.GetChild(i);
         }
 

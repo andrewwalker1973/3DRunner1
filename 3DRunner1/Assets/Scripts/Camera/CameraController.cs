@@ -133,7 +133,7 @@ public class CameraController : MonoBehaviour
             Vector3 desiredPosition = lookAt.position + startOffset;
            
             desiredPosition.x = 0;
-            desiredPosition.y = 5f;
+            desiredPosition.y = 3f;
             transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
 
 

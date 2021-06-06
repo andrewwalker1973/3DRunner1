@@ -4,60 +4,58 @@ using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
-    // private const float LANE_DISTANCE = 2.5f; //set the lane width
-    private const float LANE_DISTANCE = 2f; //set the lane width
-    private const float TURN_SPEED = 0.05f;
 
-    //
-    private bool isRunning = true;
+    // Define the level parameters
+
+    private const float LANE_DISTANCE = 2.5f; //set the lane width
+    private const float TURN_SPEED = 0.05f;     // how much to turn the charatcer in direction of lane chnage
+    private int desiredLane = 1; // 0=left 1=middle 2=right
+
+
+    // Define Character Parameters
+    private bool isRunning = true;          // Are we running
+    // Basic Movement
+    private CharacterController controller;  // reference character controller
+    [SerializeField] private float jumpForce;       // How high we can jump
+    private float gravity = 20f; // was 12      // How strong is Gravity
+    private float verticalVelocity;             // What is our falling speed
+
     //Slide Settings
-    public bool isSliding = false;                                              // am Sliding true/false
+    public bool isSliding = false;              // am Sliding true/false
 
-    public bool isSafe = false;
+    // Jump Settings
+    public bool isJumping;                          // bool to check if we are jumping
+    public bool isOnGround;                                 // bool to check if grounded
+
+    // speed Modifier
+  //  private float originalSpeed = 18.0f; // was 7   // keep a refence to original speed when doing speed power ups
+    public float speed = 18.0f; // was 7            // Initial Speed
+    private float speedIncreaseLastTick;            // When last speed increased 
+    private float speedIncreaseTime = 2.5f;         // time to speed increase
+    private float speedIncreaseAmount = 0.1f;       // How much to increase by
+    Vector3 moveVector = Vector3.zero;
+
+    public bool isSafe = false;                 // Invunrbility yes/no
 
     //  Animation
     //  private Animator anim;
-    // Magnet magnet;
-    // Movement
-    private CharacterController controller;
-    public float jumpForce = 4f; // WAS 4
-    private float gravity = 12f;
-    private float verticalVelocity;
 
 
-    private int desiredLane = 1; // 0=left 1=middle 2=right
 
-    // speed Modifier
-    private float originalSpeed = 18.0f; // was 7
-    public float speed = 18.0f; // was 7
-    private float speedIncreaseLastTick;
-    private float speedIncreaseTime = 2.5f;
-    private float speedIncreaseAmount = 0.1f;
-
-    // added in code for power up process
-    /*  public enum PowerUpType { Magnet }
-      public Dictionary<PowerUpType, PowerUp> powerUpDictionary;
-      private float powerUpDuration = 10f;
-      private List<PowerUpType> itemsToRemove;
-    */
-    public GameObject Player;
+    public GameObject Player;                           // Refernce the player
     public GameManager theGameManager;                              // Reference the GameManager script to call fucntions
     private ScoreManager theScoreManager;       // reference the score manager
 
-    //   public GameObject MagnetCollider;
-    //  CoinMove coinMoveScript;
 
-    //attepmpt at origion root
-    //    public GameObject OrigionRoot;
 
 
     private void Start()
     {
-        speed = originalSpeed;
-        controller = GetComponent<CharacterController>();
+       // speed = originalSpeed;
+        controller = GetComponent<CharacterController>();           // pull in the character controller
         theScoreManager = FindObjectOfType<ScoreManager>();         // find score manager script
 
-        //   anim = GetComponent<Animator>();
+        //   anim = GetComponent<Animator>();                       // Pull in the animator
           // magnet = gameObject.GetComponent<Magnet>();
 
         
@@ -82,37 +80,68 @@ public class PlayerMotor : MonoBehaviour
         }
         */
         if (Time.time - speedIncreaseLastTick > speedIncreaseTime)
-        {
-            speedIncreaseLastTick = Time.time;
-            speed += speedIncreaseAmount;
+         {
+             speedIncreaseLastTick = Time.time;
+             speed += speedIncreaseAmount;
 
-            // change modifer text display
-       //     GameManager.Instance.UpdateModifer(speed - originalSpeed);
+             // change modifer text display
+        //     GameManager.Instance.UpdateModifer(speed - originalSpeed);
 
 
-        }
+         }
+        
 
         // gather the inputs on which lane we should be in
 
-        if (MobileInput.Instance.SwipeLeft)
+        if (controller.isGrounded) //if grounded
         {
+            isOnGround = true;             // seton ground to true - am on ground
+            isJumping = false;              // we are not jumping so false
+            //     anim.SetBool("Grounded", true);
+
+            verticalVelocity = -0.1f;
+        }
+
+
+        if (MobileInput.Instance.SwipeLeft || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+           
             MoveLane(false);
         }
-        if (MobileInput.Instance.SwipeRight)
+        if (MobileInput.Instance.SwipeRight || Input.GetKeyDown(KeyCode.RightArrow))
         {
             MoveLane(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (MobileInput.Instance.SwipeUp || Input.GetKeyDown(KeyCode.UpArrow) && isOnGround)
         {
-            // move left
-            MoveLane(false);
+            //Jump
+            isOnGround = false;                                                                         // no longer on ground
+            isJumping = true;                                                                           // We are jumping
+                                                                                                        //    anim.SetTrigger("Jump");
+            verticalVelocity = jumpForce;
+
+
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (MobileInput.Instance.SwipeDown || Input.GetKeyDown(KeyCode.DownArrow) && isOnGround)       // if swipe down and we are on ground then slide
         {
-            // move right
-            MoveLane(true);
+            StartSliding();
+
+            
         }
+
+        else if (MobileInput.Instance.SwipeDown || Input.GetKeyDown(KeyCode.DownArrow) && isJumping && !isOnGround)
+        {
+            //Drop from jump to slide 
+            verticalVelocity = -5f;
+            StartSliding();
+        }
+        else
+        {
+            verticalVelocity -= (gravity * Time.deltaTime); // slowly fall to ground level if normal jump
+        }
+
+
 
         // Calculate where we should be in the future
         Vector3 targetPosition = transform.position.z * Vector3.forward;
@@ -124,69 +153,14 @@ public class PlayerMotor : MonoBehaviour
         {
             targetPosition += Vector3.right * LANE_DISTANCE;
         }
-
+      
 
         // Calcuate move vector
-        Vector3 moveVector = Vector3.zero;
-        //  moveVector.x = (targetPosition - transform.position).normalized.x * speed; // character was shakaing 
-
+      
         moveVector.x = (targetPosition - transform.position).x * speed;
-
-
-
-        // Calc Y
-        if (controller.isGrounded) //if grounded
-        {
-            //bool isGrounded = true;
-       //     anim.SetBool("Grounded", true);
-
-            verticalVelocity = -0.1f;
-
-
-            //   if (Input.GetKeyDown(KeyCode.Space))
-            if (MobileInput.Instance.SwipeUp || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                //Jump
-            //    anim.SetTrigger("Jump");
-                verticalVelocity = jumpForce;
-
-
-            }
-            else if (MobileInput.Instance.SwipeDown || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                //slide
-                StartSliding();
-            }
-        }
-        else
-        {
-            // bool isGrounded = false;
-            //  Debug.Log("NOTGrounded "); 
-            verticalVelocity -= (gravity * Time.deltaTime); // slowly fall to ground level
-                                                            //  Debug.Log("Floating");
-                                                            // Fast Falling area
-                                                            // if (Input.GetKeyDown(KeyCode.M))
-            if (MobileInput.Instance.SwipeDown || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                verticalVelocity = -jumpForce;  //drop immediatly to ground
-                                                // Add code to drop quick and then slide
-                StartSliding();
-                                                // anim.SetBool("DropSlide", true);
-
-            }
-
-
-
-        }
-
-
 
         moveVector.y = verticalVelocity;
         moveVector.z = speed;
-
-
-        // move player
-        //Debug.Log("Move Vecto" + moveVector);
         controller.Move(moveVector * Time.deltaTime);
 
         //Rotate charatcter in direction of travel
@@ -198,7 +172,17 @@ public class PlayerMotor : MonoBehaviour
 
         }
 
+
+
+
+
+     
+
     }
+
+
+
+       
 
     private void MoveLane(bool goingRight)
     {
@@ -256,7 +240,6 @@ public class PlayerMotor : MonoBehaviour
   
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("Hit obstalce");
             if (isSafe == false)
             {
                 theScoreManager.SaveHighScore();
@@ -279,9 +262,7 @@ public class PlayerMotor : MonoBehaviour
                     theScoreManager.SaveHighScore();
                     //  deathSound.Play();
                     theGameManager.RestartGame();  // AW want pause and choose to continue later
-                                                   //  movespeed = moveSpeedStore;     //Reset back to starting game speed
-                                                   //   speedMilestoneCount = speedMilestoneCountStore;  //Reset back to starting game speed increase
-                                                   //  speedIncreaseMilestone = speedIncreaseMilestoneStore; //Reset back to starting game spped milestone
+                                                   
                 }
             }
         }

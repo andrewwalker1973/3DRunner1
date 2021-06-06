@@ -5,11 +5,18 @@
 /[Ll]ibrary/
 /3DRunner1/[Ll]ibrary/
 /[Tt]emp/
+/3DRunner1/[Tt]emp/
 /[Oo]bj/
+/3DRunner1/[Oo]bj/
 /[Bb]uild/
+/3DRunner1/[Bb]uild/
 /[Bb]uilds/
+/3DRunner1/[Bb]uilds/
 /[Ll]ogs/
+/3DRunner1/[Ll]ogs/
 /[Mm]emoryCaptures/
+/3DRunner1/[Mm]emoryCaptures/
+
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
