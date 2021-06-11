@@ -18,6 +18,7 @@ public class PathItemGeneratorStraightLineCoin : MonoBehaviour
     {
         thePlatformGenerator = FindObjectOfType<PlatformGenerator>();
         theStraightLineCoin = FindObjectOfType<StraightLineCoin>();
+      
 
     }
 
@@ -32,14 +33,14 @@ public class PathItemGeneratorStraightLineCoin : MonoBehaviour
 
     }
 
-    private IEnumerator resetSpawnpoints()
+   /* private IEnumerator resetSpawnpoints()
     {
         //    Debug.Log("Restet spawn points");
         yield return new WaitForSeconds(10f);
         SpawnStraightCoin();
         StartCoroutine(resetSpawnpoints());
     }
-
+   */
     private void SpawnStraightCoin()
     {
         Transform spawnPoint = PickSpawnPoint(containerString, straightCoinSpawnPointString);
@@ -56,6 +57,7 @@ public class PathItemGeneratorStraightLineCoin : MonoBehaviour
             coin1.transform.GetChild(2).gameObject.SetActive(true);
             */
             thePlatformGenerator.SpawnStraightCoins(newPosition);
+            
         }
 
     }

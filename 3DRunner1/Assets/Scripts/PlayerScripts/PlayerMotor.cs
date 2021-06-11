@@ -13,7 +13,7 @@ public class PlayerMotor : MonoBehaviour
 
 
     // Define Character Parameters
-    private bool isRunning = true;          // Are we running
+    private bool isRunning;          // Are we running
     // Basic Movement
     private CharacterController controller;  // reference character controller
     [SerializeField] private float jumpForce;       // How high we can jump
@@ -54,6 +54,7 @@ public class PlayerMotor : MonoBehaviour
        // speed = originalSpeed;
         controller = GetComponent<CharacterController>();           // pull in the character controller
         theScoreManager = FindObjectOfType<ScoreManager>();         // find score manager script
+        theGameManager = FindObjectOfType<GameManager>();
 
         //   anim = GetComponent<Animator>();                       // Pull in the animator
           // magnet = gameObject.GetComponent<Magnet>();
@@ -74,11 +75,11 @@ public class PlayerMotor : MonoBehaviour
 
 
 
-        /*if (!theGameManager.RunbuttonPressed)
+       if (!theGameManager.isRunning)
         {
             return; // if game is not started, dont run below code
         }
-        */
+       
         if (Time.time - speedIncreaseLastTick > speedIncreaseTime)
          {
              speedIncreaseLastTick = Time.time;
@@ -242,8 +243,8 @@ public class PlayerMotor : MonoBehaviour
         {
             if (isSafe == false)
             {
-                theScoreManager.SaveHighScore();
-                theGameManager.RestartGame();
+                theScoreManager.SaveHighScore();  // AW maybe not best place for this
+                theGameManager.PlayerDiedContinueOption();
             }
         }
 
@@ -261,7 +262,7 @@ public class PlayerMotor : MonoBehaviour
                 {
                     theScoreManager.SaveHighScore();
                     //  deathSound.Play();
-                    theGameManager.RestartGame();  // AW want pause and choose to continue later
+                    theGameManager.PlayerDiedContinueOption();  
                                                    
                 }
             }
@@ -275,10 +276,12 @@ public class PlayerMotor : MonoBehaviour
     public void IsSafe()
     {
         isSafe = true;
+        Debug.Log("SAFE MODE");
     }
     public void IsNotSafe()
     {
         isSafe = false;
+        Debug.Log("### END SAFE MODE");
     }
 
    

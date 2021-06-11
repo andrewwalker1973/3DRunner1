@@ -38,6 +38,9 @@ public class ScoreManager : MonoBehaviour
             // pull from player prefs
             Debug.Log("Found crystals Pref");
             crystalCount = PlayerPrefs.GetInt("Crystals", 0); // pull from player prefs and set to 0 if not found
+
+            // AW tesmp to play with crystals in purchasing ---- remove
+            crystalCount = 20;
         }
 
     }
@@ -112,5 +115,10 @@ public class ScoreManager : MonoBehaviour
             PlayerPrefs.SetFloat("HighScore", hiScoreCount);            // AW save highscore to playerPrefs may not be the best place for it as this happens while player is runnin
 
         }
+    }
+
+    public void SaveCrystalCount()
+    {
+        PlayerPrefs.SetInt("Crystals", crystalCount);
     }
 }

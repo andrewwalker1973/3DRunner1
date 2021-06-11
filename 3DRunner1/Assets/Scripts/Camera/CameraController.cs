@@ -92,18 +92,21 @@ public class CameraController : MonoBehaviour
      private Vector3 moveVector;
     float smoothSpeed = 0.125f;
 
-     private float transition = 0.0f;
-     private float animationDuration = 2.0f;
+     private float transition =0.0f;
+     private float animationDuration = 20.0f;
     // private Vector3 animationOffset = new Vector3(0, 5, -133);
 
     //  private Vector3 animationOffset = new Vector3(33, /*13*/ 0, -0.5f); 
-    private Vector3 animationOffset = new Vector3(10, 5, -0.5f);
+    public Vector3 animationOffset;
     private Vector3 velocity = Vector3.zero;
+    private Vector3 animposition;
     private void Start()
      {
          lookAt = GameObject.FindGameObjectWithTag ("Player").transform;
-       //  startOffset = transform.position - lookAt.position;
-     }
+        Debug.Log("Player" + lookAt);
+        //  startOffset = transform.position - lookAt.position;
+      animposition = lookAt.position + animationOffset;
+    }
 
     // private void Update()
     private void LateUpdate()
@@ -126,10 +129,10 @@ public class CameraController : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
      */
 
-       // transform.position = smoothedPosition;
+      //  transform.position = animationOffset;
             
-         //   if (transition > 1.0f)
-      //   {
+            if (transition > 1.0f)
+         {
             Vector3 desiredPosition = lookAt.position + startOffset;
            
             desiredPosition.x = 0;
@@ -137,16 +140,20 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
 
 
-      //  }
-      //  else
-      //   {
-           /* // Animation at start of Game
-            Vector3 animposition = lookAt.position + animationOffset;
+        }
+        else
+         {
+            // Animation at start of Game
+            // Vector3 animposition = lookAt.position + animationOffset;
+            Debug.Log("moving caera");
             transform.position = Vector3.SmoothDamp(transform.position, animposition, ref velocity, smoothSpeed);
              transition += Time.deltaTime * 1 / animationDuration;
+            Debug.Log("animationDuration" + animationDuration);
+            Debug.Log("transition" + transition);
+            Debug.Log("transform.position" + transform.position);
               transform.LookAt(lookAt.position + Vector3.up);
-           */
-      //  }
+           
+        }
 
      }
 

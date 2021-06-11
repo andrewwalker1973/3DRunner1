@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        FindObjectOfType<GameManager>().ResetToBegining();
+      //  FindObjectOfType<GameManager>().ResetToBegining();
     }
 
     public void QuitToMain()

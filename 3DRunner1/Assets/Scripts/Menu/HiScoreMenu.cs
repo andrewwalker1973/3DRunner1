@@ -9,7 +9,7 @@ public class HiScoreMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        FindObjectOfType<GameManager>().ResetToBegining();
+      //  FindObjectOfType<GameManager>().ResetToBegining();
     }
 
     public void QuitToMain()

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+// AW not used in scene
+
 public class DeathMenu : MonoBehaviour
 {
 
@@ -10,7 +13,7 @@ public class DeathMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        FindObjectOfType<GameManager>().ResetToBegining();
+       // FindObjectOfType<GameManager>().ResetToBegining();
     }
 
     public void QuitToMain()

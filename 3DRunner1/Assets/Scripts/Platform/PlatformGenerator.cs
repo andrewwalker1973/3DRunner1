@@ -221,7 +221,7 @@ public class PlatformGenerator : MonoBehaviour
                 GameObject newPlatform = theObjectPools[platformSelector].GetPooledObject();                        // run the function in the ObjectPool script called GetpooledObject to find the next game object and make it a game object
                 newPlatform.transform.position = transform.position;                            // set the new platforms position
                 newPlatform.transform.rotation = transform.rotation;                            // Set the new platforms rotation
-                newPlatform.SetActive(true);                                                    // Set it active in the game
+               newPlatform.SetActive(true);                                                    // Set it active in the game
 
           
 
@@ -359,8 +359,8 @@ public class PlatformGenerator : MonoBehaviour
             */
 
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (platformWidths[platformSelector] / 2));
-
-            }
+          
+        }
             
         
         

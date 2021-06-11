@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class MainMenu : MonoBehaviour
 {
-    public string playGameLevel;
+   
+    public GameManager theGameManager;                              // Reference the GameManager script to call fucntions
+    public MainMenu theMainMenu;
 
+    private void Start()
+    {
+        theGameManager = FindObjectOfType<GameManager>();
+    }
     public void PlayGame()
     {
-        SceneManager.LoadScene(playGameLevel);
+        theGameManager.isRunning = true;
+        Debug.Log("Mainmenu set running true");
+        theMainMenu.gameObject.SetActive(false);
     }
 
 
