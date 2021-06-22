@@ -7,6 +7,7 @@ public class HiScoreMenu : MonoBehaviour
 {
     public string mainMenuLevel;
 
+
     public void RestartGame()
     {
       //  FindObjectOfType<GameManager>().ResetToBegining();

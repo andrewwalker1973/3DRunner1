@@ -6,17 +6,23 @@ using UnityEngine.SceneManagement;
 public class ContinueMenu : MonoBehaviour
 {
 
-    private GameManager theGameManager;
+    private GameContinueManager theGameContinueManager;
     public string mainMenuLevel;
 
     private void Start()
     {
-        theGameManager = FindObjectOfType<GameManager>();
+        theGameContinueManager = FindObjectOfType<GameContinueManager>();
     }
 
-    public void ContinueGame()
+    public void ContinueGamewithCrystals()
     {
-        theGameManager.ContinueGame();
+        theGameContinueManager.ContinueGameCrystals();
+
+    }
+
+    public void ContinueGamewithVideo()
+    {
+        theGameContinueManager.ContinueGameVideo();
 
     }
 

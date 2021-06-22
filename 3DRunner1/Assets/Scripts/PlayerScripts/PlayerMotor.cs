@@ -45,8 +45,10 @@ public class PlayerMotor : MonoBehaviour
     public GameObject Player;                           // Refernce the player
     public GameManager theGameManager;                              // Reference the GameManager script to call fucntions
     private ScoreManager theScoreManager;       // reference the score manager
+    private GameContinueManager theGameContinueManager;
 
-
+    public GameObject whatIhit;
+    public GameObject safeModeWhatIHit;
 
 
     private void Start()
@@ -55,11 +57,12 @@ public class PlayerMotor : MonoBehaviour
         controller = GetComponent<CharacterController>();           // pull in the character controller
         theScoreManager = FindObjectOfType<ScoreManager>();         // find score manager script
         theGameManager = FindObjectOfType<GameManager>();
+        theGameContinueManager = FindObjectOfType<GameContinueManager>();
 
         //   anim = GetComponent<Animator>();                       // Pull in the animator
-          // magnet = gameObject.GetComponent<Magnet>();
+        // magnet = gameObject.GetComponent<Magnet>();
 
-        
+
         //origionroot
         //  gameObject.transform.SetParent(OrigionRoot.transform, false);
 
@@ -244,7 +247,25 @@ public class PlayerMotor : MonoBehaviour
             if (isSafe == false)
             {
                 theScoreManager.SaveHighScore();  // AW maybe not best place for this
-                theGameManager.PlayerDiedContinueOption();
+                whatIhit = other.gameObject.transform.parent.gameObject;    // Disable the obstacle i collided with AW need to make sure it re-appers later
+                                                                            // whould be better with other.gameObject.transform.parent.parent.gameObject
+                                                                            // but does not work for obstalce
+                whatIhit.SetActive(false);
+                theGameContinueManager.PlayerDiedContinueOption();
+
+                //StartCoroutine(reEnableColidedObstacle());
+               // other.gameObject.SetActive(false);
+                Debug.Log("disable");
+            }
+            else
+                if (isSafe == true)
+            {
+                Debug.Log("shoudl destroy object");
+                safeModeWhatIHit = other.gameObject.transform.parent.gameObject;    // Disable the obstacle i collided with AW need to make sure it re-appers later
+                                                                                    // whould be better with other.gameObject.transform.parent.parent.gameObject
+                                                                                    // but does not work for obstalce
+                safeModeWhatIHit.SetActive(false);
+                StartCoroutine(reEnableColidedObstacleSafeMode());
             }
         }
 
@@ -262,7 +283,7 @@ public class PlayerMotor : MonoBehaviour
                 {
                     theScoreManager.SaveHighScore();
                     //  deathSound.Play();
-                    theGameManager.PlayerDiedContinueOption();  
+                    theGameContinueManager.PlayerDiedContinueOption();  
                                                    
                 }
             }
@@ -276,7 +297,13 @@ public class PlayerMotor : MonoBehaviour
     public void IsSafe()
     {
         isSafe = true;
+        //whatIhit = other.gameObject.transform.parent.gameObject;    // Disable the obstacle i collided with AW need to make sure it re-appers later
+                                                                    // whould be better with other.gameObject.transform.parent.parent.gameObject
+                                                                    // but does not work for obstalce
+       // whatIhit.SetActive(false);
+
         Debug.Log("SAFE MODE");
+        StartCoroutine(reEnableColidedObstacle());
     }
     public void IsNotSafe()
     {
@@ -284,5 +311,18 @@ public class PlayerMotor : MonoBehaviour
         Debug.Log("### END SAFE MODE");
     }
 
-   
+    IEnumerator reEnableColidedObstacle()
+        {
+        Debug.Log("starting re-enable");
+                yield return new WaitForSeconds(5f);
+                whatIhit.SetActive(true);
+        }
+
+    IEnumerator reEnableColidedObstacleSafeMode()
+    {
+        Debug.Log("starting re-enable");
+        yield return new WaitForSeconds(5f);
+        safeModeWhatIHit.SetActive(true);
+    }
+
 }

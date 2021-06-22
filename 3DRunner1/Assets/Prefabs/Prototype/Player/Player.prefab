@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 5917172672497609080}
   - component: {fileID: 5917172672497609081}
   - component: {fileID: 5917172672497609029}
-  - component: {fileID: 5917172672497609082}
   - component: {fileID: 5917172672497609031}
   - component: {fileID: 302131401}
   m_Layer: 0
@@ -128,25 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51f7465ae5056c4b858cb2703a5842f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5917172672497609082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5917172672497609087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0666811eb5b23fc43bdad6ab7dc1fe8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: 7
-  isOnGround: 1
-  movespeed: 0
-  speedMultiplier: 1.05
-  speedIncreaseMilestone: 50
-  isSliding: 0
-  theGameManager: {fileID: 0}
 --- !u!114 &5917172672497609031
 MonoBehaviour:
   m_ObjectHideFlags: 0

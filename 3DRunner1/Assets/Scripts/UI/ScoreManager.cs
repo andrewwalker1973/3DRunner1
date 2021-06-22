@@ -16,6 +16,7 @@ public class ScoreManager : MonoBehaviour
     public float hiScoreCount;                  // what is the hi score
     public bool highScoreAchieved = false;
     private int coinScore;
+    private int totalCoinScore;
 
     public float pointsPerSecond;               // how much to increase score by
     public bool scoreIncreasing;                // is score increasing ? dont want to increase while dead
@@ -30,17 +31,25 @@ public class ScoreManager : MonoBehaviour
         if (PlayerPrefs.HasKey("HighScore"))                // if highscore exists in playprefs
         {
             // pull from player prefs
-            Debug.Log("Found player Pref");
             hiScoreCount = PlayerPrefs.GetFloat("HighScore", 0); // pull from player prefs and set to 0 if not found
         }
         if (PlayerPrefs.HasKey("Crystals"))                // if highscore exists in playprefs
         {
             // pull from player prefs
-            Debug.Log("Found crystals Pref");
             crystalCount = PlayerPrefs.GetInt("Crystals", 0); // pull from player prefs and set to 0 if not found
 
             // AW tesmp to play with crystals in purchasing ---- remove
-            crystalCount = 20;
+            //crystalCount = 10;
+        }
+
+        if (PlayerPrefs.HasKey("TotalCoinScore"))                // if highscore exists in playprefs
+        {
+            // pull from player prefs
+
+            totalCoinScore = PlayerPrefs.GetInt("TotalCoinScore", 0); // pull from player prefs and set to 0 if not found
+
+            // AW tesmp to play with coins in purchasing ---- remove
+            //totalCoinScore = 1000;
         }
 
     }
@@ -55,13 +64,7 @@ public class ScoreManager : MonoBehaviour
         }
         
 
-       // if (scoreCount > hiScoreCount)                      // if score > hghscore update highscore
-      //  {
-          //  hiScoreCount = scoreCount;                      // update highscore
-            // PlayerPrefs.SetFloat("HighScore", hiScoreCount);            // AW save highscore to playerPrefs may not be the best place for it as this happens while player is running
-
-
-      //  }
+      
 
         scoreText.text = "Score : " + Mathf.Round (scoreCount);           // set the scorecout on screen rount to solid number
         hiScoreText.text = "HiScore : " + Mathf.Round(hiScoreCount);     // Set the hi score on screen
@@ -83,6 +86,8 @@ public class ScoreManager : MonoBehaviour
     {
         
         coinScore += coinsToAdd;      // Add coins 
+        totalCoinScore += coinsToAdd;    // Add to total coin score
+        Debug.Log("Total Coin count" + totalCoinScore);
     }
 
 
@@ -121,4 +126,12 @@ public class ScoreManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Crystals", crystalCount);
     }
+
+    public void SaveTotalCoinCount()
+    {
+
+        PlayerPrefs.SetInt("TotalCoinScore", totalCoinScore);
+    }
+
+
 }

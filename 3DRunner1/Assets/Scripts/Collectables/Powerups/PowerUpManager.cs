@@ -37,6 +37,7 @@ public class PowerUpManager : MonoBehaviour
     float magnetDuration;
     float fasterDuration;
     float slowerDuration;
+    float doubleDuration;
 
     private float normalSpeed;
 
@@ -79,8 +80,9 @@ public class PowerUpManager : MonoBehaviour
                 theGameManager.powerUpReset = false;    // flag to disable powerups in game manager
             }
 
-            if (doublePoints)
+            if (doublePoints && doubleDuration <= 0)
             {
+                Debug.Log("Double");
                 PowerUpScoreImage.SetActive(true);
                 theScoreManager.pointsPerSecond = normalPointsPerSecond * 2;        // double the points per second
                 theScoreManager.shouldDouble = true;
@@ -158,7 +160,7 @@ public class PowerUpManager : MonoBehaviour
 
         if (magnet == true)
         {
-            Debug.Log("Faster");
+            Debug.Log("Magnet");
             coinDetectorObj.SetActive(true);
             magnetDuration = time;
             PowerUpMagentImage.SetActive(true);
@@ -180,9 +182,23 @@ public class PowerUpManager : MonoBehaviour
             slowerDuration = time;
             PowerUpSlowerImage.SetActive(true);
         }
+
+        if (doublePoints)
+        {
+            Debug.Log("double");
+            doubleDuration = time;
+        }
       
         powerupActive = true;                                               // set power up to be true
 
 
+    }
+
+    public void clearAllPowerUpDurations()
+    {
+         magnetDuration =0;
+         fasterDuration =0;
+         slowerDuration =0;
+        doubleDuration = 0;
     }
 }

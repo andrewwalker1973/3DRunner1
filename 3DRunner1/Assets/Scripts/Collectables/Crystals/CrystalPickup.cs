@@ -30,7 +30,7 @@ public class CrystalPickup : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))       // if hit the player
         {
-            audioManager.PlaySound(crystalSoundName);
+            audioManager.PlaySound(crystalSoundName);       //AW need a sound to play
             theScoreManager.AddCrystals(crystalToGive);
             
 
