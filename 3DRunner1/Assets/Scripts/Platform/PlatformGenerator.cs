@@ -67,7 +67,16 @@ public class PlatformGenerator : MonoBehaviour
     private int enemySelector;
     private float enemyLocation_offset = -15f;
     public bool gameManagerPoolOnline = false;
+    public GameObject enemy;
 
+
+    private int enemyMovingSelector;
+    public ObjectPooler[] theEnemylaneMovingPools;
+    public GameObject enemyFullLane;
+
+    private int runningEnemyMovingSelector;
+    public ObjectPooler[] theRunningEnemylaneMovingPools;
+    public GameObject runningEnemyFullLane;
 
     public GameManager theGameManager;                              // Reference the GameManager script to call fucntions
     private PlayerMotor thePlayerMotor;
@@ -319,6 +328,46 @@ public class PlatformGenerator : MonoBehaviour
         crystal.SetActive(true);
         crystal.transform.GetChild(0).gameObject.SetActive(true);
     }
+
+    public void SpawnEnemys(Vector3 newPosition)
+    {
+
+        // Decide which Crystal to present
+        enemySelector = Random.Range(0, theEnemyPools.Length);              // Get random powerup from Pool
+        enemy = theEnemyPools[enemySelector].GetPooledObject();       // make it a game object
+
+
+        enemy.transform.position = newPosition;
+        enemy.SetActive(true);
+        enemy.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void SpawnLaneEnemys(Vector3 newPosition)
+    {
+
+        // Decide which Enemy lane  to present
+        enemyMovingSelector = Random.Range(0, theEnemylaneMovingPools.Length);              // Get random powerup from Pool
+        enemyFullLane = theEnemylaneMovingPools[enemyMovingSelector].GetPooledObject();       // make it a game object
+
+
+        enemyFullLane.transform.position = newPosition;
+        enemyFullLane.SetActive(true);
+        enemyFullLane.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void SpawnRunningEnemys(Vector3 newPosition)
+    {
+
+        // Decide which Enemy lane  to present
+        runningEnemyMovingSelector = Random.Range(0, theRunningEnemylaneMovingPools.Length);              // Get random powerup from Pool
+        runningEnemyFullLane = theRunningEnemylaneMovingPools[runningEnemyMovingSelector].GetPooledObject();       // make it a game object
+
+
+        runningEnemyFullLane.transform.position = newPosition;
+        runningEnemyFullLane.SetActive(true);
+        runningEnemyFullLane.transform.GetChild(0).gameObject.SetActive(true);
+    }
 }
+
 
 

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 6a72a39b0d5ee7e47a01922a2a8673fb
 ModelImporter:
-  serializedVersion: 19300
+  serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 6200578666267062213
@@ -192,7 +192,72 @@ ModelImporter:
   - first:
       74: 2749528720828629341
     second: load
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EFX
+    second: {fileID: 2100000, guid: 361dde239ae32b645bd82d0d8532fec5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_frank
+    second: {fileID: 2100000, guid: 4076530c92aa7524c8136f49f706cf35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_fresh
+    second: {fileID: 2100000, guid: 9fddc1bb354c3564d8fd3b48bdb425b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_frizzy
+    second: {fileID: 2100000, guid: 926128152caf5aa4aa1e65a962f4f805, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_king
+    second: {fileID: 2100000, guid: 8d38594932d43434b96552b5047bea2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_lucy
+    second: {fileID: 2100000, guid: 04bbc416c994cb442a6fde5004808ffd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_ninja
+    second: {fileID: 2100000, guid: 324a7c63744b5994c8c4b69d9f301b86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_slick
+    second: {fileID: 2100000, guid: 26a9ec4f9b12f144d93aeb05944b8e5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_spike
+    second: {fileID: 2100000, guid: 58bda28952dd2fa4a82537a5935dc5ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_tricky
+    second: {fileID: 2100000, guid: 2f537c4dfa53fa945bceae30a61685de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: avatar_yutani
+    second: {fileID: 2100000, guid: fa25bab9a77a40a4f988b3aee22943e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: main
+    second: {fileID: 2100000, guid: 7a1f475a5dfb86e4bb2c71a982d21a15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shadow
+    second: {fileID: 2100000, guid: 4610cc7384e06d047816ebad92bfb4f2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -2389,11 +2454,13 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
@@ -2403,6 +2470,9 @@ ModelImporter:
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 0
   tangentSpace:
@@ -2925,6 +2995,7 @@ ModelImporter:
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

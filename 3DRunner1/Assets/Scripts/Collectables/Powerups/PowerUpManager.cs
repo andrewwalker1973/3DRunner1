@@ -11,7 +11,7 @@ public class PowerUpManager : MonoBehaviour
     private bool shieldMode;              // which powerup is being activated
     private bool magnet;                // magnet powerup
     private bool fasterMode;
-   private bool slowerMode;
+    private bool slowerMode;
 
 
     private bool powerupActive;        // which powerup is active
@@ -21,7 +21,7 @@ public class PowerUpManager : MonoBehaviour
     private float LowObstacleRate;              // to store lowobstacle percentage rate
 
     private ScoreManager theScoreManager;       // need the score manager script
-   // private PlatformGenerator thePlatformGenerator;     // need the platformmanager script
+                                                // private PlatformGenerator thePlatformGenerator;     // need the platformmanager script
     private GameManager theGameManager;                 // refernce the game manager script
     private PlayerMotor theplayerMotor;                    // Refernce the player motor script
 
@@ -31,7 +31,8 @@ public class PowerUpManager : MonoBehaviour
     public GameObject PowerUpSafeImage;
     public GameObject PowerUpMagentImage;
     public GameObject PowerUpFasterImage;
-   public GameObject PowerUpSlowerImage;
+    public GameObject PowerUpSlowerImage;
+    public GameObject PowerUpDoubleCoinsImage;
 
     public GameObject coinDetectorObj;
     float magnetDuration;
@@ -39,7 +40,14 @@ public class PowerUpManager : MonoBehaviour
     float slowerDuration;
     float doubleDuration;
 
+
     private float normalSpeed;
+    public MagnetPowerbar magnetPowerbar;
+    public MagnetPowerbar doublePowerbar;
+
+
+
+
 
 
     void Start()
@@ -71,8 +79,9 @@ public class PowerUpManager : MonoBehaviour
 
             powerUpLenghtCounter -= Time.deltaTime;     // Start decreasing the time
             magnetDuration -= Time.deltaTime;
-            
-  
+            doubleDuration -= Time.deltaTime;
+
+
 
             if (theGameManager.powerUpReset)             // if reset counter is true, disable all powerups
             {
@@ -80,27 +89,44 @@ public class PowerUpManager : MonoBehaviour
                 theGameManager.powerUpReset = false;    // flag to disable powerups in game manager
             }
 
-            if (doublePoints && doubleDuration <= 0)
+            if (doublePoints)
             {
                 Debug.Log("Double");
-                PowerUpScoreImage.SetActive(true);
+                //PowerUpScoreImage.SetActive(true);
                 theScoreManager.pointsPerSecond = normalPointsPerSecond * 2;        // double the points per second
                 theScoreManager.shouldDouble = true;
+                doublePowerbar.SetMagnetPower((int)doubleDuration);         // Display progress bar and convert float to int
+                Debug.Log("Double duration" + doubleDuration);
+            }
+
+            if (doubleDuration <= 0)
+            {
+                PowerUpDoubleCoinsImage.SetActive(false);
+                theScoreManager.pointsPerSecond = normalPointsPerSecond;             // set points per second back
+                theScoreManager.shouldDouble = false;                               // stop doubling points
             }
 
             if (shieldMode)
             {
-               // theplayerMotor.isSafe = true;
-              //  PowerUpSafeImage.SetActive(true);
+                // theplayerMotor.isSafe = true;
+                //  PowerUpSafeImage.SetActive(true);
             }
 
-            
+
             if (magnetDuration <= 0)
             {
                 coinDetectorObj.SetActive(false);
                 PowerUpMagentImage.SetActive(false);
-              
+
             }
+
+            if (magnetDuration >= 0)
+            {
+
+                Debug.Log("magnetDuration " + magnetDuration);
+                magnetPowerbar.SetMagnetPower((int)magnetDuration);         // Display progress bar and convert float to int
+            }
+
 
             if (fasterMode && fasterDuration <= 0)
             {
@@ -117,22 +143,22 @@ public class PowerUpManager : MonoBehaviour
                 PowerUpSlowerImage.SetActive(false);
 
             }
-           
+
 
             if (powerUpLenghtCounter <= 0)                                              // when at 0
             {
-               
-                
-                theScoreManager.pointsPerSecond = normalPointsPerSecond;             // set points per second back
-             //   thePlatformGenerator.randomLowObstacleThreshold = LowObstacleRate;  // set low obstacle rate back
-                theScoreManager.shouldDouble = false;                               // stop doubling points
-                powerupActive = false;                                              // disable the powerup
-                theplayerMotor.IsNotSafe();
-                PowerUpScoreImage.SetActive(false);
-                PowerUpSafeImage.SetActive(false);
+
 
                 
+                                                                                     //   thePlatformGenerator.randomLowObstacleThreshold = LowObstacleRate;  // set low obstacle rate back
                 
+                powerupActive = false;                                              // disable the powerup
+                theplayerMotor.IsNotSafe();
+               // PowerUpScoreImage.SetActive(false);
+               // PowerUpSafeImage.SetActive(false);
+
+
+
             }
         }
     }
@@ -158,7 +184,7 @@ public class PowerUpManager : MonoBehaviour
             PowerUpSafeImage.SetActive(true);
         }
 
-        if (magnet == true)
+        if (magnet)
         {
             Debug.Log("Magnet");
             coinDetectorObj.SetActive(true);
@@ -187,8 +213,9 @@ public class PowerUpManager : MonoBehaviour
         {
             Debug.Log("double");
             doubleDuration = time;
+            PowerUpDoubleCoinsImage.SetActive(true);
         }
-      
+
         powerupActive = true;                                               // set power up to be true
 
 
@@ -196,9 +223,11 @@ public class PowerUpManager : MonoBehaviour
 
     public void clearAllPowerUpDurations()
     {
-         magnetDuration =0;
-         fasterDuration =0;
-         slowerDuration =0;
+        magnetDuration = 0;
+        fasterDuration = 0;
+        slowerDuration = 0;
         doubleDuration = 0;
     }
+
+   
 }

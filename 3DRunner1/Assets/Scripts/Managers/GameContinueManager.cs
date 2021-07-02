@@ -11,6 +11,7 @@ public class GameContinueManager : MonoBehaviour
     private bool continueSelected = false;          // Has the continue button been pressed
     public int TotalcountDownTime;                  // How long to wait for countdown to main menu
     private int countDownTime;                      // Int for contdown
+    private int safeModeTime = 5;
     public Image OnContinueTimer;                   // Image to show screen timer
     public string mainMenuLevel;                    // refeence for main menu
     public int CrystaltoContinue = 0;               // How many crystals to continue
@@ -27,6 +28,9 @@ public class GameContinueManager : MonoBehaviour
     public Image ReturnToMainScreenfillImage;           // Radial image for fill bar
     public TextMeshProUGUI countDownDisplay;           // Count down display Text
     public HiScoreMenu theHiScoreMenu;                  // Refeence the Hi score menu
+
+    public GameObject SafeModeImage;
+    public MagnetPowerbar SafePowerbar;
 
 
 
@@ -52,6 +56,7 @@ public class GameContinueManager : MonoBehaviour
 
         theGameManager.isRunning = false;          // Stop runnig
         theScoreManager.scoreIncreasing = false;         // stop increasing score
+        safeModeTime = 5;
         thepowerUpManager.clearAllPowerUpDurations();
       //  thePlayer.gameObject.SetActive(false);              // disable the player
         theContinueScreen.gameObject.SetActive(true);          // bring up the contunue Menu screen
@@ -137,7 +142,17 @@ public class GameContinueManager : MonoBehaviour
     IEnumerator StopSafeModeRoutine()
     {
         // AW would be nice to have a visual refernce for this
-        yield return new WaitForSeconds(5f);            // Wait 5 seconds
+        // yield return new WaitForSeconds(5f);            // Wait 5 seconds
+        while (safeModeTime > 0)
+        {
+
+            // countDownDisplay.text = countDownTime.ToString();       // dispaly text and convert to string
+            SafePowerbar.SetMagnetPower(safeModeTime);         // Display progress bar and convert float to int
+            yield return new WaitForSeconds(1f);                    // Wait for 1 sec
+            safeModeTime--;                                        // decrease by 1 sec
+        }
+
+        SafeModeImage.SetActive(false);
         thePlayer.IsNotSafe();                          // Turn safe mode off
         continueSelected = false;                       // rest continue back to false so that next check will be false
 
@@ -148,6 +163,7 @@ public class GameContinueManager : MonoBehaviour
     {
         countDownTime = TotalcountDownTime;         // Set the countdown timer
         countDownDisplay.gameObject.SetActive(true);    // Display the  countdown timer
+        thePlayer.SetPlayerIdle();
         while (countDownTime > 0)
         {
 
@@ -158,6 +174,7 @@ public class GameContinueManager : MonoBehaviour
 
 
         countDownDisplay.gameObject.SetActive(false);           // Disable the countdown display game object
+        SafeModeImage.SetActive(true);
         thePlayer.IsSafe();                                     // Set safe mode for player
         theGameManager.isRunning = true;                                        // Start runnig
    
