@@ -43,7 +43,7 @@ public class PowerUpManager : MonoBehaviour
 
     private float normalSpeed;
     public MagnetPowerbar magnetPowerbar;
-    public MagnetPowerbar doublePowerbar;
+    public DoubleModePowerBar doublePowerbar;
 
 
 
@@ -95,8 +95,9 @@ public class PowerUpManager : MonoBehaviour
                 //PowerUpScoreImage.SetActive(true);
                 theScoreManager.pointsPerSecond = normalPointsPerSecond * 2;        // double the points per second
                 theScoreManager.shouldDouble = true;
-                doublePowerbar.SetMagnetPower((int)doubleDuration);         // Display progress bar and convert float to int
-                Debug.Log("Double duration" + doubleDuration);
+               // doublePowerbar.SetMaxDoublePower((int)doubleDuration);
+                doublePowerbar.SetDoublePower((int)doubleDuration);         // Display progress bar and convert float to int
+             //   Debug.Log("Double duration" + ((int)doubleDuration));
             }
 
             if (doubleDuration <= 0)
@@ -105,6 +106,8 @@ public class PowerUpManager : MonoBehaviour
                 theScoreManager.pointsPerSecond = normalPointsPerSecond;             // set points per second back
                 theScoreManager.shouldDouble = false;                               // stop doubling points
             }
+
+            
 
             if (shieldMode)
             {
@@ -123,7 +126,7 @@ public class PowerUpManager : MonoBehaviour
             if (magnetDuration >= 0)
             {
 
-                Debug.Log("magnetDuration " + magnetDuration);
+              //  Debug.Log("magnetDuration " + magnetDuration);
                 magnetPowerbar.SetMagnetPower((int)magnetDuration);         // Display progress bar and convert float to int
             }
 
@@ -138,7 +141,7 @@ public class PowerUpManager : MonoBehaviour
 
             if (slowerMode && slowerDuration <= 0)
             {
-                Debug.Log(" slowerDuration " + slowerDuration);
+              //  Debug.Log(" slowerDuration " + slowerDuration);
                 theplayerMotor.speed = normalSpeed;
                 PowerUpSlowerImage.SetActive(false);
 
@@ -189,6 +192,7 @@ public class PowerUpManager : MonoBehaviour
             Debug.Log("Magnet");
             coinDetectorObj.SetActive(true);
             magnetDuration = time;
+            magnetPowerbar.SetMaxMagentPower((int)magnetDuration);
             PowerUpMagentImage.SetActive(true);
 
         }
@@ -213,6 +217,7 @@ public class PowerUpManager : MonoBehaviour
         {
             Debug.Log("double");
             doubleDuration = time;
+            doublePowerbar.SetMaxDoublePower((int)doubleDuration);
             PowerUpDoubleCoinsImage.SetActive(true);
         }
 

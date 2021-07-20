@@ -88,12 +88,15 @@ public class PlayerMotor : MonoBehaviour
 
     public GameObject Player;                           // Refernce the player
     public GameManager theGameManager;                              // Reference the GameManager script to call fucntions
+    public GlobalBendWorld theGlobalBendWorld;
     private ScoreManager theScoreManager;       // reference the score manager
     private GameContinueManager theGameContinueManager;
 
     public GameObject whatIhit;
     public GameObject safeModeWhatIHit;
     public GameObject safeModeWhatIHitEnemy;
+
+    
 
 
     private void Start()
@@ -104,19 +107,21 @@ public class PlayerMotor : MonoBehaviour
         theScoreManager = FindObjectOfType<ScoreManager>();         // find score manager script
         theGameManager = FindObjectOfType<GameManager>();
         theGameContinueManager = FindObjectOfType<GameContinueManager>();
+        theGlobalBendWorld = FindObjectOfType<GlobalBendWorld>();
+        
 
-       // CapsuleCollider cc1 = GetComponent<CapsuleCollider>();
+    // CapsuleCollider cc1 = GetComponent<CapsuleCollider>();
 
-        //   anim = GetComponent<Animator>();                       // Pull in the animator
-        // magnet = gameObject.GetComponent<Magnet>();
+    //   anim = GetComponent<Animator>();                       // Pull in the animator
+    // magnet = gameObject.GetComponent<Magnet>();
 
 
-        //origionroot
-        //  gameObject.transform.SetParent(OrigionRoot.transform, false);
+    //origionroot
+    //  gameObject.transform.SetParent(OrigionRoot.transform, false);
 
-        // new move code
-       // stumbletime = stumbleTolerance;
-        transform.position = Vector3.zero;          // New code - center player in middle
+    // new move code
+    // stumbletime = stumbleTolerance;
+    transform.position = Vector3.zero;          // New code - center player in middle
         m_Side = SIDE.Mid;
         ColHeight = controller.height;
         ColCenterY = controller.center.y;
@@ -137,6 +142,14 @@ public class PlayerMotor : MonoBehaviour
         {
             return; // if game is not started, dont run below code
         }
+
+        // Code to determine how long rinning is enabled
+        if (theGameManager.isRunning)
+        {
+            theScoreManager.runningTime += Time.deltaTime;
+
+        }
+
         guard.curDis = curDistance;
         CollisionCol.isTrigger = !CanInput;
        if (Dead)
@@ -376,14 +389,7 @@ public class PlayerMotor : MonoBehaviour
 
 */
 
-    public void StartRunning()
-    {
-        isRunning = true;
-      //  anim.SetTrigger("StartRunning");
-
-        // can add camera looking at something before game starts here\
-
-    }
+   
 
  /*   private void StartSliding()
     {
@@ -478,13 +484,19 @@ public class PlayerMotor : MonoBehaviour
     
     public void OnCharacterColliderHit(Collider col)
     {
-        Debug.Log(" OnCharacterColliderHit " + col);
+        Debug.Log(" OnCharacterColliderHit " + col.gameObject.tag);
 
         hitX = GetHitX(col);
         hitY = GetHitY(col);
         hitZ = GetHitZ(col);
 
-        if (isSafe)
+        if (col.gameObject.tag == "LeftTurn")
+            {
+            Debug.Log("Turning Left");
+            ResetCollision();
+             }
+            
+        if (isSafe && col.gameObject.tag != "Ramp")
         {
             Debug.Log("Is safe");
             safeModeWhatIHit = col.gameObject;
@@ -559,19 +571,25 @@ public class PlayerMotor : MonoBehaviour
         {
             if (hitX == HitX.Right)
             {
-                m_Animator.SetLayerWeight(1, 1);
-                Stumble("stumbleCornerRight",1);
-              //  LastSide = m_Side;
-                Debug.Log("Stumble corner right");
-                ResetCollision();
+                if (col.gameObject.tag != "Ramp")
+                {
+                    m_Animator.SetLayerWeight(1, 1);
+                    Stumble("stumbleCornerRight", 1);
+                    //  LastSide = m_Side;
+                    Debug.Log("Stumble corner right");
+                    ResetCollision();
+                }
             }
             else if (hitX == HitX.Left)
             {
-                m_Animator.SetLayerWeight(1, 1);
-                Stumble("stumbleCornerLeft",1);
-                //LastSide = m_Side;
-                Debug.Log("Stumble corner left");
-                ResetCollision();
+                if (col.gameObject.tag != "Ramp")
+                {
+                    m_Animator.SetLayerWeight(1, 1);
+                    Stumble("stumbleCornerLeft", 1);
+                    //LastSide = m_Side;
+                    Debug.Log("Stumble corner left");
+                    ResetCollision();
+                }
             }
         }
     }
@@ -715,12 +733,15 @@ public class PlayerMotor : MonoBehaviour
         else
                 if (isSafe == true)
         {
-            Debug.Log("shoudl destroy object");
-         //   safeModeWhatIHit = other.gameObject.transform.parent.gameObject;    // Disable the obstacle i collided with AW need to make sure it re-appers later
-                                                                                // whould be better with other.gameObject.transform.parent.parent.gameObject
-                                                                                // but does not work for obstalce
-        //    safeModeWhatIHit.SetActive(false);
-            StartCoroutine(reEnableColidedObstacleSafeMode());
+            Debug.Log("shoudl destroy object" + hitobj);
+            //   safeModeWhatIHit = other.gameObject.transform.parent.gameObject;    // Disable the obstacle i collided with AW need to make sure it re-appers later
+            // whould be better with other.gameObject.transform.parent.parent.gameObject
+            // but does not work for obstalce
+            //    safeModeWhatIHit.SetActive(false);
+            if (hitobj.tag != "Ramp")
+            {
+                StartCoroutine(reEnableColidedObstacleSafeMode());
+            }
         }
 
         // end my code
@@ -798,7 +819,15 @@ public class PlayerMotor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-  
+        if (other.gameObject.CompareTag("LeftTurn"))
+        {
+            Debug.Log("Turn Left");
+            theGlobalBendWorld.TurnLeft();
+        }
+        if (other.gameObject.CompareTag("RightTurn"))
+        {
+            theGlobalBendWorld.TurnRight();
+        }
         if (other.gameObject.CompareTag("Obstacle"))
         {
             if (isSafe == false)
@@ -881,7 +910,10 @@ public class PlayerMotor : MonoBehaviour
         {
         Debug.Log("starting re-enable");
                 yield return new WaitForSeconds(5f);
-                whatIhit.SetActive(true);
+        if (whatIhit != null)
+                {
+                    whatIhit.SetActive(true);
+                }
         }
 
     IEnumerator reEnableColidedObstacleSafeMode()

@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 721416486856989864}
   - component: {fileID: 5085702726705364476}
   - component: {fileID: 6354022948928611900}
+  - component: {fileID: 3318690750598906703}
   m_Layer: 0
   m_Name: OneLaneHigh
   m_TagString: MovingTrain
@@ -168,3 +169,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformDestructionPoint: {fileID: 0}
+--- !u!114 &3318690750598906703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7205608881554669342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8602a756ed273b409ccafa2be5ae322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curvedShader: {fileID: 2100000, guid: f72535b07c0ce33479c852ba70f3f212, type: 2}

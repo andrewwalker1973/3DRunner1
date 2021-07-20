@@ -30,7 +30,8 @@ public class GameContinueManager : MonoBehaviour
     public HiScoreMenu theHiScoreMenu;                  // Refeence the Hi score menu
 
     public GameObject SafeModeImage;
-    public MagnetPowerbar SafePowerbar;
+    public SafeModePowerbar SafePowerbar;
+ //   public Slider safeslider;
 
 
 
@@ -57,6 +58,7 @@ public class GameContinueManager : MonoBehaviour
         theGameManager.isRunning = false;          // Stop runnig
         theScoreManager.scoreIncreasing = false;         // stop increasing score
         safeModeTime = 5;
+        SafePowerbar.SetMaxSafePower(safeModeTime);
         thepowerUpManager.clearAllPowerUpDurations();
       //  thePlayer.gameObject.SetActive(false);              // disable the player
         theContinueScreen.gameObject.SetActive(true);          // bring up the contunue Menu screen
@@ -105,6 +107,8 @@ public class GameContinueManager : MonoBehaviour
         theScoreManager.SaveCrystalCount();
         theScoreManager.SaveTotalCoinCount();
        theScoreManager.SaveHighScore();                          // AW save high score but dont open screen until back at main menu
+        theScoreManager.SaveRunningTime(theScoreManager.runningTime);
+        giftSelector = 0;
         continueSelected = true;                                // Selected continue, so stop return to main menu
         theContinueScreen.gameObject.SetActive(false);          // stop  the contunue Menu screen
         OnContinueTimer.gameObject.SetActive(false);            // disable the countdown timer
@@ -121,6 +125,7 @@ public class GameContinueManager : MonoBehaviour
         theScoreManager.SaveCrystalCount();
         theScoreManager.SaveTotalCoinCount();
         theScoreManager.SaveHighScore();                      // AW save high score but dont open screen until back at main menu
+        theScoreManager.SaveRunningTime(theScoreManager.runningTime);
         continueSelected = true;                                // Selected continue, so stop return to main menu
         theContinueScreen.gameObject.SetActive(false);          // stop  the contunue Menu screen
         OnContinueTimer.gameObject.SetActive(false);            // disable the countdown timer
@@ -147,7 +152,8 @@ public class GameContinueManager : MonoBehaviour
         {
 
             // countDownDisplay.text = countDownTime.ToString();       // dispaly text and convert to string
-            SafePowerbar.SetMagnetPower(safeModeTime);         // Display progress bar and convert float to int
+            SafePowerbar.SetSafePower(safeModeTime);         // Display progress bar and convert float to int
+            Debug.Log("Safe time " + safeModeTime);
             yield return new WaitForSeconds(1f);                    // Wait for 1 sec
             safeModeTime--;                                        // decrease by 1 sec
         }
@@ -177,6 +183,8 @@ public class GameContinueManager : MonoBehaviour
         SafeModeImage.SetActive(true);
         thePlayer.IsSafe();                                     // Set safe mode for player
         theGameManager.isRunning = true;                                        // Start runnig
+    //    safeslider.maxValue = safeModeTime;
+    //    safeslider.value = safeModeTime;
    
         thePlayer.gameObject.SetActive(true);                     // enable the player
 
@@ -220,6 +228,10 @@ public class GameContinueManager : MonoBehaviour
         if (!continueSelected)              // if continue not selected
         {
 
+            theScoreManager.SaveCrystalCount();
+            theScoreManager.SaveTotalCoinCount();
+            theScoreManager.SaveHighScore();
+            theScoreManager.SaveRunningTime(theScoreManager.runningTime);
             // Check for HiScore
             if (theScoreManager.highScoreAchieved)
             {
