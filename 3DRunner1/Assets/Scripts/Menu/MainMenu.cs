@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 
 public class MainMenu : MonoBehaviour
@@ -10,16 +10,25 @@ public class MainMenu : MonoBehaviour
     public MainMenu theMainMenu;
     private ScoreManager theScoreManager;       // reference the score manager
     public GameObject inGameUIScreen;
+    public Button shopButton;
+
+    private string ShopSceneName = "ShopUI";
+
 
     private void Start()
     {
         theGameManager = FindObjectOfType<GameManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();         // find score manager script
+
+       
+
+        
+
+
     }
     public void PlayGame()
     {
         theGameManager.isRunning = true;
-        Debug.Log("Mainmenu set running true");
         theMainMenu.gameObject.SetActive(false);
         theScoreManager.LoadPlayervalues();
         inGameUIScreen.SetActive(true);
@@ -31,4 +40,9 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void LoadShopScene()
+    {
+        // Load Shop Scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene(ShopSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+    }
 }
