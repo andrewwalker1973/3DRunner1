@@ -16,7 +16,7 @@ public class CameraMotor : MonoBehaviour
     {
         theGameManager = FindObjectOfType<GameManager>();
         lookAt = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+    } 
 
     private void LateUpdate()
     {
