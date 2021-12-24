@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
 
     // Information for Player
-    public PlayerMotor thePlayer;              // reference to player object
+    public CharacterPlayer thePlayer;              // reference to player object
     private Vector3 playerStartPoint;               // where does the player start
     public bool isRunning = false;                  // Start off with not running
 
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     // Refernces to scripts needed
     private ScoreManager theScoreManager;           // reference the scoremanager script
     private PowerUpManager thepowerUpManager;       // referenc ethe powerup manager
+    private CharacterPlayer thecharacterPlayer;
 
 
     //UI Screen objects
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
 
         platformStartPoint = platformGenerator.position;            // set the platform startpoint
-        playerStartPoint = thePlayer.transform.position;             // set the player start point
+     //   playerStartPoint = thePlayer.transform.position;             // set the player start point
         theScoreManager = FindObjectOfType<ScoreManager>();         // find the score Manager script
         thepowerUpManager = FindObjectOfType<PowerUpManager>();         // find the Powerup Manager script
 
@@ -77,6 +78,7 @@ public class GameManager : MonoBehaviour
         theScoreManager.scoreIncreasing = false;         // Start increasing score
         thePlayer.gameObject.SetActive(true);              // disable the player
         isRunning = false;                              // Stop running
+        thecharacterPlayer.CanInput = true;
     }
 
 

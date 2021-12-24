@@ -11,8 +11,11 @@ public class MainMenu : MonoBehaviour
     private ScoreManager theScoreManager;       // reference the score manager
     public GameObject inGameUIScreen;
     public Button shopButton;
+   
+    public Camera mainCamera;
+    public Camera shopCamera;
 
-    private string ShopSceneName = "ShopUI";
+   // private string ShopSceneName = "ShopUI";
 
 
     private void Start()
@@ -20,9 +23,12 @@ public class MainMenu : MonoBehaviour
         theGameManager = FindObjectOfType<GameManager>();
         theScoreManager = FindObjectOfType<ScoreManager>();         // find score manager script
 
-       
 
-        
+ 
+
+
+
+
 
 
     }
@@ -40,9 +46,12 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void LoadShopScene()
+
+    public void OpenShopButton()
     {
-        // Load Shop Scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene(ShopSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        mainCamera.gameObject.SetActive(false);
+        shopCamera.gameObject.SetActive(true);
     }
+
+
 }

@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class OnCollision : MonoBehaviour
 {
-    public PlayerMotor m_char;
+     //public PlayerMotor m_char;
+    public CharacterPlayer m_char;
+
+
+
+    private void Start()
+    {
+        m_char = FindObjectOfType<CharacterPlayer>();
+    }
+
+    public void UpdateCharCollider()
+    {
+        m_char = FindObjectOfType<CharacterPlayer>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -14,13 +14,24 @@ namespace ShopUpgradeSystem
         public Text speedText, accelerationText, totalCoinsText;
         public Button unlockBtn, upgradeBtn, next_Btn, previousButton;   //ref to important Buttons
 
-        private int currentIndex = 0;                       //index of current item showing in the shop 
+       // private int currentIndex = 0;                       //index of current item showing in the shop 
+       public int currentIndex = 0;
         private int selectedIndex;                          //actual selected item index
+
+        public Camera mainCamera;
+        public Camera shopCamera;
+        public Button shopExitButton;
+        public bool selectionUpdated = false;
+
+        public PlayerManager thePlayerManager;
 
         private void Start()
         {
+            thePlayerManager = FindObjectOfType<PlayerManager>();
+            shopCamera.gameObject.SetActive(false);
             saveLoadData.Initialize();                     //Initialize , load or save default data and load data
             selectedIndex = PlayerPrefs.GetInt("SelectedItem", 0);  //get the selectedIndex from PlayerPrefs
+            Debug.Log("Seclected index " + selectedIndex);
             currentIndex = selectedIndex;                           //set the currentIndex
             totalCoinsText.text = "" + totalCoins;
             SetCarInfo();
@@ -29,6 +40,7 @@ namespace ShopUpgradeSystem
             upgradeBtn.onClick.AddListener(() => UpgradeButton());          //add listner to button
             next_Btn.onClick.AddListener(() => Next_Button());                //add listner to button
             previousButton.onClick.AddListener(() => PreviousButton());     //add listner to button
+            shopExitButton.onClick.AddListener(() => CloseShopButton());      //add listner to button
 
             if (currentIndex == 0) previousButton.interactable = false;     //dont interact previousButton if currentIndex is 0
             //dont interact previousButton if currentIndex is shopItemList.shopItems.Length - 1
@@ -36,12 +48,13 @@ namespace ShopUpgradeSystem
 
             foreach (var item in carList)  // Disable all objects at start
             {
-                Debug.Log("Item " + item);
+               // Debug.Log("Item " + item);
                 item.SetActive(false);
 
             }
 
             carList[currentIndex].SetActive(true);                         //activate the object at currentIndex
+            Debug.Log("SHOPUI current index " + currentIndex);
             UnlockButtonStatus();
             UpgradeButtonStatus();
 
@@ -136,6 +149,9 @@ namespace ShopUpgradeSystem
                     yesSelected = true;                             //set yesSelected to true
                     shopData.shopItems[currentIndex].isUnlocked = true; //mark the shop item unlocked
                     UpgradeButtonStatus();
+                    saveLoadData.SaveData_Prefs();
+
+
                 }
             }
 
@@ -146,6 +162,10 @@ namespace ShopUpgradeSystem
                 PlayerPrefs.SetInt("SelectedItem", selectedIndex);  //save the selectedIndex
                 unlockBtn.interactable = false;                     //set unlockBtn interactable to false
             }
+            Debug.Log("Saving start index" + currentIndex);
+            PlayerPrefs.SetInt("SelectedItem", currentIndex);  //get the selectedIndex from PlayerPrefs
+            selectionUpdated = true;
+            saveLoadData.SaveData_Prefs();
 
         }
 
@@ -177,6 +197,7 @@ namespace ShopUpgradeSystem
                 }
 
                 SetCarInfo();
+                saveLoadData.SaveData_Prefs();
             }
         }
 
@@ -230,5 +251,14 @@ namespace ShopUpgradeSystem
                 upgradeBtnText.text = "Locked";
             }
         }
+        public void CloseShopButton()
+        {
+            shopCamera.gameObject.SetActive(false);
+            mainCamera.gameObject.SetActive(true);
+            thePlayerManager.ChangeSelectedPlayer();
+
+        }
     }
+
+
 }

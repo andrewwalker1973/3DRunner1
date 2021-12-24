@@ -90,7 +90,7 @@ namespace ShopUpgradeSystem
          */
 
 
-            Debug.Log(" Car nane locked " + shopUI.shopData.shopItems[0].isUnlocked);
+          //  Debug.Log(" Car nane locked " + shopUI.shopData.shopItems[0].isUnlocked);
 
 
             // string shopDataString = JsonUtility.ToJson(shopUI.shopData);
@@ -115,23 +115,24 @@ namespace ShopUpgradeSystem
         {
             for (int i = 0; i < shopUI.carList.Length; i++)
             {
-                Debug.Log(" Car nane " + shopUI.shopData.shopItems[i].carName);
+            //    Debug.Log(" Car nane " + shopUI.shopData.shopItems[i].carName);
                 string CarName = shopUI.shopData.shopItems[i].carName;
                 bool CarNameLocked = shopUI.shopData.shopItems[i].isUnlocked;
                 //  PlayerPrefs.SetString(CarName, CarName);
                 if (shopUI.shopData.shopItems[i].isUnlocked == false)
                 {
-                    Debug.Log("saveing 0  true");
+               //     Debug.Log("saveing 0  true");
                     PlayerPrefs.SetInt(CarName + "status", 0);
                 }
                 else
                 {
-                    Debug.Log("Setting 1 false");
+               //     Debug.Log("Setting 1 false");
                     PlayerPrefs.SetInt(CarName + "status", 1);
                 }
-
+                Debug.Log("Saving");
 
             }
+
         }
 
         //Method used to load the data
@@ -201,21 +202,21 @@ namespace ShopUpgradeSystem
             
             for (int i = 0; i < shopUI.carList.Length; i++)
             {
-                Debug.Log(" Car nane load " + shopUI.shopData.shopItems[i].carName);
+              //  Debug.Log(" Car nane load " + shopUI.shopData.shopItems[i].carName);
                 string CarName = shopUI.shopData.shopItems[i].carName;
                 bool CarNameLocked = shopUI.shopData.shopItems[i].isUnlocked;
                 //  PlayerPrefs.SetString(CarName, CarName);
 
                 int carunlocked = PlayerPrefs.GetInt(CarName + "status", 0);
-                Debug.Log("Car " + carunlocked);
+            //    Debug.Log("Car " + carunlocked);
                 if (carunlocked == 1)
                 {
-                    Debug.Log("Setting true");
+            //        Debug.Log("Setting true");
                     shopUI.shopData.shopItems[i].isUnlocked = true;
                 }
                 else
                 {
-                    Debug.Log("Setting false");
+            //        Debug.Log("Setting false");
                     shopUI.shopData.shopItems[i].isUnlocked = false;
                 }
             }

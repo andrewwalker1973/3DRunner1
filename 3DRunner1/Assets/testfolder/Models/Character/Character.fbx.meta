@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6a72a39b0d5ee7e47a01922a2a8673fb
+guid: 6ee066e7c64870e428b759a6c588784c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -192,74 +192,9 @@ ModelImporter:
   - first:
       74: 2749528720828629341
     second: load
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: EFX
-    second: {fileID: 2100000, guid: 361dde239ae32b645bd82d0d8532fec5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_frank
-    second: {fileID: 2100000, guid: 4076530c92aa7524c8136f49f706cf35, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_fresh
-    second: {fileID: 2100000, guid: 9fddc1bb354c3564d8fd3b48bdb425b1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_frizzy
-    second: {fileID: 2100000, guid: 926128152caf5aa4aa1e65a962f4f805, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_king
-    second: {fileID: 2100000, guid: 8d38594932d43434b96552b5047bea2b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_lucy
-    second: {fileID: 2100000, guid: 04bbc416c994cb442a6fde5004808ffd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_ninja
-    second: {fileID: 2100000, guid: 324a7c63744b5994c8c4b69d9f301b86, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_slick
-    second: {fileID: 2100000, guid: 26a9ec4f9b12f144d93aeb05944b8e5e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_spike
-    second: {fileID: 2100000, guid: 58bda28952dd2fa4a82537a5935dc5ac, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_tricky
-    second: {fileID: 2100000, guid: 2f537c4dfa53fa945bceae30a61685de, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: avatar_yutani
-    second: {fileID: 2100000, guid: fa25bab9a77a40a4f988b3aee22943e9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: main
-    second: {fileID: 2100000, guid: 7a1f475a5dfb86e4bb2c71a982d21a15, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shadow
-    second: {fileID: 2100000, guid: 4610cc7384e06d047816ebad92bfb4f2, type: 2}
+  externalObjects: {}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -628,7 +563,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -775,7 +710,7 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
@@ -1613,8 +1548,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -1642,8 +1577,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -2251,8 +2186,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -2445,7 +2380,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.1
+    globalScale: 12
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -2454,7 +2389,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    fileIdsGeneration: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -2474,7 +2409,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -2705,139 +2640,139 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: gSkeleton_game
       parentName: avatar_prefab
-      position: {x: -0, y: 0.46539998, z: -0.0228}
+      position: {x: -0, y: 0.5584799, z: -0.027359996}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: jRoot
       parentName: gSkeleton_game
-      position: {x: 5.296564e-34, y: -0.0061841607, z: 0.0003913883}
-      rotation: {x: 6.0460504e-17, y: 0.9873951, z: -0.15827486, w: -9.6915334e-18}
+      position: {x: 6.3558764e-34, y: -0.007421135, z: 0.0004696688}
+      rotation: {x: 6.046052e-17, y: 0.9873951, z: -0.15827484, w: -9.69153e-18}
       scale: {x: 1.0000005, y: 1, z: 1.0000006}
     - name: jLeg_L
       parentName: jRoot
-      position: {x: 0.09241944, y: -0.035061285, z: -0.012053775}
-      rotation: {x: -0.98981, y: 0.00023692104, z: 0.0010523212, w: -0.14239031}
-      scale: {x: 1.0000012, y: 0.99999905, z: 1.0000007}
+      position: {x: 0.11090332, y: -0.04207354, z: -0.014464528}
+      rotation: {x: -0.98981, y: 0.0002369231, z: 0.0010523251, w: -0.14239031}
+      scale: {x: 1.0000012, y: 0.9999989, z: 1.0000007}
     - name: jKnee_L
       parentName: jLeg_L
-      position: {x: 4.440892e-17, y: 0.18290536, z: 1.110223e-16}
-      rotation: {x: -0.07990955, y: 0.0000000018299033, z: -0.000000011277734, w: 0.99680215}
-      scale: {x: 1.0000033, y: 1.0000031, z: 1.0000011}
+      position: {x: 5.3290704e-17, y: 0.2194864, z: 1.3322674e-16}
+      rotation: {x: -0.07990955, y: 0.000000010139047, z: -0.000000004816684, w: 0.99680215}
+      scale: {x: 1.0000035, y: 1.0000031, z: 1.0000015}
     - name: jFoot_L
       parentName: jKnee_L
-      position: {x: -3.8857806e-15, y: 0.17653339, z: 7.779011e-11}
-      rotation: {x: 0.49143076, y: 0.0000000014115356, z: 0.000000012631061, w: 0.8709166}
-      scale: {x: 1.0000088, y: 1.0000101, z: 0.9999982}
+      position: {x: -4.6629363e-15, y: 0.21184005, z: 9.3348135e-11}
+      rotation: {x: 0.49143076, y: -0.00000000566797, z: 0.0000000074796835, w: 0.8709166}
+      scale: {x: 1.00001, y: 1.0000101, z: 0.9999984}
     - name: jToes_L
       parentName: jFoot_L
-      position: {x: 1.4432899e-15, y: 0.09528588, z: 6.6613384e-17}
-      rotation: {x: 0.3156155, y: 5.820766e-11, z: -5.820766e-11, w: 0.9488872}
-      scale: {x: 1.0000086, y: 1.0000024, z: 1.0000055}
+      position: {x: 1.7319477e-15, y: 0.11434303, z: 7.9936054e-17}
+      rotation: {x: 0.3156155, y: -2.910383e-11, z: -0, w: 0.9488872}
+      scale: {x: 1.0000027, y: 0.9999985, z: 1.0000033}
     - name: jLeg_R
       parentName: jRoot
-      position: {x: -0.0924194, y: -0.035060823, z: -0.0120539265}
-      rotation: {x: -0.14239028, y: -0.0010523787, z: 0.00023694457, w: 0.98981}
-      scale: {x: 1.0000014, y: 0.9999995, z: 1.0000007}
+      position: {x: -0.11090326, y: -0.042072985, z: -0.01446471}
+      rotation: {x: -0.14239028, y: -0.001052383, z: 0.00023694646, w: 0.98981}
+      scale: {x: 1.0000014, y: 0.9999992, z: 1.0000007}
     - name: jKnee_R
       parentName: jLeg_R
-      position: {x: 6.6613384e-17, y: -0.18290542, z: 0.000000003918772}
-      rotation: {x: -0.07990955, y: -0.000000017229468, z: -0.000000019543222, w: 0.99680215}
-      scale: {x: 1.0000042, y: 1.0000001, z: 1.0000035}
+      position: {x: 7.9936054e-17, y: -0.21948649, z: 0.000000004702526}
+      rotation: {x: -0.07990955, y: -0.000000018277206, z: -0.00000004170579, w: 0.99680215}
+      scale: {x: 1.0000042, y: 1.0000004, z: 1.0000037}
     - name: jFoot_R
       parentName: jKnee_R
-      position: {x: 3.1530333e-15, y: -0.1765337, z: 0.00000029350628}
-      rotation: {x: 0.49143073, y: 3.4924597e-10, z: 0.000000019983418, w: 0.8709167}
-      scale: {x: 1.0000066, y: 1.0000063, z: 0.99999875}
+      position: {x: 3.78364e-15, y: -0.21184045, z: 0.0000003522075}
+      rotation: {x: 0.49143076, y: 0.000000013271347, z: 0.00000003229252, w: 0.8709167}
+      scale: {x: 1.0000055, y: 1.0000061, z: 0.9999988}
     - name: jToes_R
       parentName: jFoot_R
-      position: {x: -5.107026e-16, y: -0.0952859, z: 0.000000010444953}
-      rotation: {x: 0.31561556, y: -0.000000039697625, z: -0.00000002697925, w: 0.94888717}
-      scale: {x: 1.0000052, y: 0.99999356, z: 1.0000116}
+      position: {x: -6.1284305e-16, y: -0.11434306, z: 0.000000012533942}
+      rotation: {x: 0.31561556, y: -0.000000030733645, z: -0.00000001754961, w: 0.94888717}
+      scale: {x: 1.000004, y: 0.9999941, z: 1.0000122}
     - name: jLowerSpine
       parentName: jRoot
-      position: {x: 3.4307703e-17, y: 0.08954313, z: -0.049702454}
-      rotation: {x: -0.18782839, y: -1.3657717e-16, z: 2.59328e-17, w: 0.98220193}
-      scale: {x: 1.0000072, y: 1, z: 1.0000067}
+      position: {x: 4.1169236e-17, y: 0.10745174, z: -0.059642933}
+      rotation: {x: -0.18782839, y: -1.5760074e-16, z: 1.3361323e-16, w: 0.98220193}
+      scale: {x: 1.0000072, y: 1, z: 1.0000066}
     - name: sprayCanBooster
       parentName: jLowerSpine
-      position: {x: 4.601486e-17, y: 0.021600714, z: 0.071748026}
+      position: {x: 5.521782e-17, y: 0.025920853, z: 0.08609763}
       rotation: {x: -6.1204774e-17, y: 0.9995498, z: 0.030003063, w: -1.8371578e-18}
       scale: {x: 1, y: 1, z: 1}
     - name: jetpackCloud_posL
       parentName: sprayCanBooster
-      position: {x: -0.09044131, y: -0.19845916, z: -0.13157153}
+      position: {x: -0.10852956, y: -0.23815097, z: -0.15788582}
       rotation: {x: -2.3353e-41, y: -3.672654e-18, z: 1.2235444e-16, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: jetpackCloud_posR
       parentName: sprayCanBooster
-      position: {x: 0.09065853, y: -0.19845916, z: -0.13157153}
+      position: {x: 0.10879023, y: -0.23815097, z: -0.15788582}
       rotation: {x: -2.3353e-41, y: -3.672654e-18, z: 1.2235444e-16, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: jShoulder_R
       parentName: jLowerSpine
-      position: {x: -0.106901005, y: 0.0801185, z: 0.0012323505}
-      rotation: {x: 0.029130679, y: 0.03887719, z: -0.013299438, w: 0.9987308}
-      scale: {x: 0.99999905, y: 1.0000004, z: 1.0000001}
+      position: {x: -0.12828119, y: 0.096142195, z: 0.0014788203}
+      rotation: {x: 0.029130679, y: 0.03887717, z: -0.013299465, w: 0.9987308}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000001}
     - name: jElbow_R
       parentName: jShoulder_R
-      position: {x: -0.1179451, y: -1.7763569e-16, z: 1.6653345e-16}
-      rotation: {x: 0.0021822613, y: -0.066300526, z: 0.008582501, w: 0.9977604}
-      scale: {x: 0.99999857, y: 0.99999964, z: 1.0000004}
+      position: {x: -0.14153412, y: -2.1316282e-16, z: 1.9984011e-16}
+      rotation: {x: 0.0021822911, y: -0.06630053, z: 0.0085825315, w: 0.9977604}
+      scale: {x: 0.9999986, y: 1.0000001, z: 1.0000008}
     - name: jHand_R
       parentName: jElbow_R
-      position: {x: -0.13189135, y: -0.0016378023, z: -0.0027630194}
-      rotation: {x: 0.0086791115, y: -0.9963123, z: 0.000743545, w: 0.08535735}
-      scale: {x: 1.0000015, y: 1.0000013, z: 0.9999988}
+      position: {x: -0.15826958, y: -0.0019653626, z: -0.0033156227}
+      rotation: {x: 0.008679122, y: -0.9963123, z: 0.00074354245, w: 0.08535737}
+      scale: {x: 1.0000006, y: 1.0000011, z: 1}
     - name: magnetBooster
       parentName: jHand_R
-      position: {x: 0.1244361, y: -0.048698705, z: 0.0070595676}
+      position: {x: 0.1493233, y: -0.058438443, z: 0.008471481}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: sprayCan
       parentName: jHand_R
-      position: {x: 0.05543391, y: -0.04478238, z: 0.0061043687}
+      position: {x: 0.06652068, y: -0.053738847, z: 0.0073252413}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Intro_SprayPaint_Particles 2
+    - name: Intro_SprayPaint_Particles
       parentName: sprayCan
-      position: {x: 0.075408384, y: 0.024191154, z: 0.01604712}
+      position: {x: 0.09049005, y: 0.029029382, z: 0.019256543}
       rotation: {x: 0.69888294, y: 0.127316, z: 0.08820899, w: 0.6982639}
       scale: {x: 2.3200188, y: 2.32002, z: 2.3200204}
     - name: Intro_SprayPaint_Particles 1
       parentName: sprayCan
-      position: {x: 0.07541683, y: 0.024191586, z: 0.016046185}
+      position: {x: 0.09050019, y: 0.029029898, z: 0.01925542}
       rotation: {x: 0.008234517, y: 0.9703991, z: -0.20109981, w: -0.13347924}
       scale: {x: 2.3200185, y: 2.3200207, z: 2.3200212}
-    - name: Intro_SprayPaint_Particles
+    - name: Intro_SprayPaint_Particles 2
       parentName: sprayCan
-      position: {x: 0.07542946, y: 0.024191197, z: 0.016049331}
+      position: {x: 0.090515345, y: 0.029029433, z: 0.019259196}
       rotation: {x: 0.6988833, y: 0.12731573, z: 0.08820923, w: 0.6982636}
       scale: {x: 2.3200188, y: 2.3200188, z: 2.3200192}
     - name: jShoulder_L
       parentName: jLowerSpine
-      position: {x: 0.106900655, y: 0.080118954, z: 0.0012323776}
-      rotation: {x: 0.0132090105, y: -0.9987307, z: -0.029134043, w: -0.03890641}
-      scale: {x: 0.9999958, y: 1.0000001, z: 0.99999785}
+      position: {x: 0.12828077, y: 0.09614273, z: 0.0014788529}
+      rotation: {x: 0.013208968, y: -0.9987307, z: -0.029134057, w: -0.038906425}
+      scale: {x: 0.9999966, y: 0.9999999, z: 0.99999803}
     - name: jElbow_L
       parentName: jShoulder_L
-      position: {x: -0.1179746, y: 0, z: -1.7763569e-16}
-      rotation: {x: -0.001967877, y: 0.06318305, z: 0.0057698116, w: 0.99798334}
-      scale: {x: 0.99999917, y: 1.0000004, z: 1.0000005}
+      position: {x: -0.14156951, y: 0, z: -2.1316282e-16}
+      rotation: {x: -0.0019679067, y: 0.06318306, z: 0.0057697496, w: 0.99798334}
+      scale: {x: 0.9999991, y: 1.0000008, z: 0.99999994}
     - name: jHand_L
       parentName: jElbow_L
-      position: {x: -0.13080363, y: -0.002709572, z: 0.0035138149}
-      rotation: {x: -0.5920502, y: 0.33346522, z: 0.30331862, w: 0.6680384}
-      scale: {x: 0.9999988, y: 1.0000032, z: 1.0000002}
+      position: {x: -0.15696433, y: -0.0032514862, z: 0.0042165774}
+      rotation: {x: -0.5920501, y: 0.3334652, z: 0.30331868, w: 0.66803855}
+      scale: {x: 0.99999815, y: 1.0000021, z: 0.9999998}
     - name: jHead
       parentName: jLowerSpine
-      position: {x: -3.4844425e-10, y: 0.16601054, z: -0.011951002}
-      rotation: {x: -0.07508158, y: 1.3751207e-16, z: 1.8701157e-17, w: 0.99717736}
-      scale: {x: 0.9999962, y: 0.9999992, z: 0.9999969}
+      position: {x: -4.181331e-10, y: 0.19921264, z: -0.0143412035}
+      rotation: {x: -0.07508158, y: 1.7773421e-16, z: -1.9596132e-17, w: 0.99717736}
+      scale: {x: 0.99999624, y: 0.9999978, z: 0.9999977}
     - name: jAfro_3
       parentName: jHead
-      position: {x: 9.241076e-17, y: 0.1320297, z: 0.08379394}
-      rotation: {x: 0.2886295, y: 3.00907e-16, z: 2.7103493e-16, w: 0.95744085}
-      scale: {x: 1.000005, y: 1.000007, z: 0.9999968}
+      position: {x: 1.10892885e-16, y: 0.15843561, z: 0.10055271}
+      rotation: {x: 0.28862956, y: 1.7824179e-16, z: 5.0539994e-17, w: 0.95744085}
+      scale: {x: 1.000005, y: 1.000008, z: 0.99999684}
     - name: powerups
       parentName: avatar_prefab
       position: {x: -0, y: 0, z: 0}
@@ -2850,7 +2785,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: jumpBooster
       parentName: powerups
-      position: {x: -0, y: 0.0096665025, z: 0.0045777215}
+      position: {x: -0, y: 0.011599801, z: 0.0054932646}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: shadowPlane_blob
@@ -2880,52 +2815,52 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Out
       parentName: t = 0.00
-      position: {x: -0.75022185, y: 0, z: 0}
+      position: {x: -0.9002661, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: t = 0.25
       parentName: FlyAheadCurve
-      position: {x: -1.8880061, y: 4.4523087, z: 0}
+      position: {x: -2.265607, y: 5.3427696, z: 0}
       rotation: {x: 0, y: 0, z: 0.060860276, w: 0.9981463}
       scale: {x: 1, y: 1, z: 1}
     - name: In 1
       parentName: t = 0.25
-      position: {x: -2.9549072, y: -3.4295526, z: 0}
+      position: {x: -3.5458884, y: -4.1154623, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Out 1
       parentName: t = 0.25
-      position: {x: 2.6409593, y: 2.8750153, z: 0}
+      position: {x: 3.1691506, y: 3.4500182, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: t = 0.50
       parentName: FlyAheadCurve
-      position: {x: 2.8355615, y: 3.6920266, z: 0}
+      position: {x: 3.4026737, y: 4.4304314, z: 0}
       rotation: {x: 0, y: 0, z: -0.21651115, w: 0.97628015}
       scale: {x: 1, y: 1, z: 1}
     - name: In 2
       parentName: t = 0.50
-      position: {x: -1.0923251, y: 1.7225302, z: 0}
+      position: {x: -1.31079, y: 2.0670362, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Out 2
       parentName: t = 0.50
-      position: {x: 1.0347375, y: -1.7646688, z: 0}
+      position: {x: 1.2416849, y: -2.1176026, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: t = 0.75
       parentName: FlyAheadCurve
-      position: {x: -0.25331834, y: 2.031066, z: 0}
+      position: {x: -0.30398196, y: 2.437279, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: In 3
       parentName: t = 0.75
-      position: {x: 1.0519142, y: -4.2255287, z: 0}
+      position: {x: 1.262297, y: -5.0706344, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Out 3
       parentName: t = 0.75
-      position: {x: -0.1314888, y: 1.0697855, z: 0}
+      position: {x: -0.15778656, y: 1.2837427, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: t = 1.00
@@ -2935,7 +2870,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: In 4
       parentName: t = 1.00
-      position: {x: 0.9069111, y: -1.0519117, z: 0}
+      position: {x: 1.0882933, y: -1.2622939, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Out 4
@@ -2950,17 +2885,17 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Collider Coin Magnet
       parentName: Character(Clone)
-      position: {x: -0, y: 0.5723255, z: 1}
+      position: {x: -0, y: 0.6867906, z: 1.1999998}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: NewHoverBoardCrashParticles
       parentName: Character(Clone)
-      position: {x: 0.047323372, y: 0.757533, z: 0.30188474}
+      position: {x: 0.056788046, y: 0.9090395, z: 0.36226165}
       rotation: {x: 0.91452676, y: -0, z: 0, w: -0.4045254}
       scale: {x: 2.3200192, y: 2.3200192, z: 2.3200192}
     - name: PickupParticles
       parentName: Character(Clone)
-      position: {x: -0, y: 0.5311452, z: 0.11922077}
+      position: {x: -0, y: 0.63737416, z: 0.1430649}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: pow
@@ -2985,7 +2920,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.1
+    globalScale: 12
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -2995,7 +2930,7 @@ ModelImporter:
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

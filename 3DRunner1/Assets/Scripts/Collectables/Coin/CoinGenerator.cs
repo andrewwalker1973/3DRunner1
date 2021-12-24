@@ -23,7 +23,7 @@ public class CoinGenerator : MonoBehaviour
         coin2.transform.GetChild(0).gameObject.transform.localPosition = Vector3.zero;
         coin2.transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z - distanceBetweenCoins);       // add coin to left of start position
        coin2.SetActive(true);
-        coin2.transform.GetChild(0).gameObject.SetActive(true); 
+        coin2.transform.GetChild(0).gameObject.SetActive(true);
 
     /*    GameObject coin3 = coinPool.GetPooledObject();
         coin3.transform.localPosition = Vector3.zero;

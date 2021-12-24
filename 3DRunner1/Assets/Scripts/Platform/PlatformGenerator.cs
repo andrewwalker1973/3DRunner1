@@ -80,6 +80,7 @@ public class PlatformGenerator : MonoBehaviour
 
     public GameManager theGameManager;                              // Reference the GameManager script to call fucntions
     private PlayerMotor thePlayerMotor;
+    private CharacterPlayer theCharacterPlayer;
 
     public JumpLineCoin theJumpLineCoin;
     public StraightLineCoin theStraightLineCoin;
@@ -119,6 +120,7 @@ public class PlatformGenerator : MonoBehaviour
         theJumpLineCoin = FindObjectOfType<JumpLineCoin>();
         theStraightLineCoin = FindObjectOfType<StraightLineCoin>();
         thePlayerMotor = FindObjectOfType<PlayerMotor>();
+        theCharacterPlayer = FindObjectOfType<CharacterPlayer>();
 
         gameManagerPoolOnline = true;
         Debug.Log("platform online");
@@ -216,9 +218,10 @@ public class PlatformGenerator : MonoBehaviour
 
         if (theGameManager.isRunning)
         {
-            float scaledSpeed = thePlayerMotor.speed * Time.deltaTime;
-        //   m_CurrentZoneDistance += scaledSpeed;
-            
+            // float scaledSpeed = thePlayerMotor.speed * Time.deltaTime;
+           // float scaledSpeed = theCharacterPlayer.FwdSpeed * Time.deltaTime;
+            //   m_CurrentZoneDistance += scaledSpeed;
+
         }
         
 
